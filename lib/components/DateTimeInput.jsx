@@ -58,7 +58,6 @@ class DateTimeInput extends Component {
     className: null,
     dayInputClassName: null,
     dayInputStyle: null,
-    isDisabled: false,
     isReadOnly: false,
     maxLength: null,
     monthSelectClassName: null,
@@ -156,7 +155,6 @@ class DateTimeInput extends Component {
       className,
       dayInputClassName,
       dayInputStyle,
-      isDisabled,
       isReadOnly,
       monthSelectClassName,
       monthSelectStyle,
@@ -172,7 +170,6 @@ class DateTimeInput extends Component {
       <div className={className} style={style}>
         <select
           className={monthSelectClassName}
-          disabled={isDisabled}
           onChange={this.onChangeMonth}
           readOnly={isReadOnly}
           style={{ ...styles.monthSelect, monthSelectStyle }}
@@ -194,7 +191,6 @@ class DateTimeInput extends Component {
         </select>
         <input
           className={dayInputClassName}
-          disabled={isDisabled}
           onChange={this.onChangingDay}
           readOnly={isReadOnly}
           style={{ ...styles.dayInput, ...dayInputStyle }}
@@ -204,7 +200,6 @@ class DateTimeInput extends Component {
         />
         <input
           className={yearInputClassName}
-          disabled={isDisabled}
           onChange={this.onChangingYear}
           readOnly={isReadOnly}
           style={{ ...styles.yearInput, ...yearInputStyle }}
@@ -214,7 +209,6 @@ class DateTimeInput extends Component {
         />
         <input
           className={timeInputClassName}
-          disabled={isDisabled}
           onChange={this.onChangingTime}
           readOnly={isReadOnly}
           style={{ ...styles.timeInput, ...timeInputStyle }}

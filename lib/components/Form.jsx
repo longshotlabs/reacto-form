@@ -248,8 +248,8 @@ class Form extends Component {
         }
 
         if (element.type.isComposableFormInput) {
-          if (typeof element.props.isDisabled === 'function') {
-            newProps.isDisabled = element.props.isDisabled(value);
+          if (typeof element.props.isReadOnly === 'function') {
+            newProps.isReadOnly = element.props.isReadOnly(value);
           }
         }
 

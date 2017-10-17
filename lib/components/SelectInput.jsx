@@ -23,7 +23,6 @@ class SelectInput extends Component {
   static defaultProps = {
     className: null,
     emptyLabel: '(Select One)',
-    isDisabled: false,
     isReadOnly: false,
     name: null,
     onChanged() {},
@@ -149,13 +148,12 @@ class SelectInput extends Component {
   }
 
   render() {
-    const { className, isDisabled, isReadOnly, name, style } = this.props;
+    const { className, isReadOnly, name, style } = this.props;
     const { value } = this.state;
 
     return (
       <select
         className={className}
-        disabled={isDisabled}
         readOnly={isReadOnly}
         name={name}
         onChange={this.onChange}

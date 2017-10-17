@@ -17,7 +17,6 @@ class BooleanCheckboxInput extends Component {
 
   static defaultProps = {
     className: null,
-    isDisabled: false,
     isReadOnly: false,
     maxLength: null,
     name: null,
@@ -80,14 +79,13 @@ class BooleanCheckboxInput extends Component {
   }
 
   render() {
-    const { className, isDisabled, isReadOnly, label, style } = this.props;
+    const { className, isReadOnly, label, style } = this.props;
     const { id, value } = this.state;
 
     return (
       <div className={className} style={style}>
         <label htmlFor={id}><input
           checked={value === true}
-          disabled={isDisabled}
           id={id}
           onChange={this.onChange}
           readOnly={isReadOnly}

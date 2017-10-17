@@ -31,7 +31,6 @@ class SelectCheckboxInput extends Component {
     itemClassName: null,
     labelClassName: null,
     emptyLabel: '(Select One)',
-    isDisabled: false,
     isReadOnly: false,
     name: null,
     onChanged() {},
@@ -121,7 +120,7 @@ class SelectCheckboxInput extends Component {
   }
 
   renderOptions() {
-    const { checkboxClassName, isDisabled, isReadOnly, itemClassName, labelClassName, options } = this.props;
+    const { checkboxClassName, isReadOnly, itemClassName, labelClassName, options } = this.props;
     const { value } = this.state;
 
     return (options || []).map((option) => {
@@ -132,7 +131,6 @@ class SelectCheckboxInput extends Component {
             <input
               checked={value.indexOf(option.value) > -1}
               className={checkboxClassName}
-              disabled={isDisabled}
               id={id}
               onChange={this.getOnChangeHandler(option.value)}
               readOnly={isReadOnly}

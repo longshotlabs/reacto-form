@@ -40,7 +40,6 @@ class Input extends Component {
     allowLineBreaks: false,
     className: null,
     convertEmptyStringToNull: true,
-    isDisabled: false,
     isReadOnly: false,
     maxLength: null,
     name: null,
@@ -140,7 +139,7 @@ class Input extends Component {
   }
 
   render() {
-    const { allowLineBreaks, className, isDisabled, isReadOnly, maxLength, name, placeholder, style, type } = this.props;
+    const { allowLineBreaks, className, isReadOnly, maxLength, name, placeholder, style, type } = this.props;
     const { value } = this.state;
 
     if (allowLineBreaks) {
@@ -149,7 +148,6 @@ class Input extends Component {
       return (
         <textarea
           className={className}
-          disabled={isDisabled}
           readOnly={isReadOnly}
           maxLength={maxLength}
           name={name}
@@ -165,7 +163,6 @@ class Input extends Component {
     return (
       <input
         className={className}
-        disabled={isDisabled}
         readOnly={isReadOnly}
         maxLength={maxLength}
         name={name}
