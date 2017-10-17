@@ -8,18 +8,17 @@ class ErrorsBlock extends Component {
   static isComposableFormErrors = true;
 
   static propTypes = {
-    // Additional classes to add to the block div
     className: PropTypes.string,
+    errorClassName: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     errors: customPropTypes.errors,
-    // Styles object for the individual error messages in the block
     errorStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    names: PropTypes.arrayOf(PropTypes.string),
-    // Styles object for the block div
+    names: PropTypes.arrayOf(PropTypes.string), // eslint-disable-line react/no-unused-prop-types
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
     className: null,
+    errorClassName: {},
     errors: undefined,
     errorStyle: {},
     names: undefined,
@@ -27,8 +26,7 @@ class ErrorsBlock extends Component {
   };
 
   render() {
-    const { errorStyle, errors, className: classNameProp, style } = this.props;
-    const className = `reacto-form-errors ${classNameProp || ''}`.trim();
+    const { errorClassName, errorStyle, errors, className, style } = this.props;
 
     if (isEmpty(errors)) return null;
 
@@ -41,7 +39,7 @@ class ErrorsBlock extends Component {
     return (
       <div className={className} style={style}>
         {errors.map((error, index) => {
-          return (<div key={index} data-name={error.name} style={errorStyle}>{error.message}</div>); // eslint-disable-line react/no-array-index-key
+          return (<div key={index} className={errorClassName} data-name={error.name} style={errorStyle}>{error.message}</div>); // eslint-disable-line react/no-array-index-key
         })}
       </div>
     );

@@ -63,34 +63,50 @@ class FormList extends Component {
   static isComposableFormList = true;
 
   static propTypes = {
+    addButtonText: PropTypes.string,
+    addItemRowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     buttonClassName: PropTypes.string,
+    buttonStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     errors: customPropTypes.errors,
     itemAreaClassName: PropTypes.string,
+    itemAreaStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     itemClassName: PropTypes.string,
+    itemStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     itemRemoveAreaClassName: PropTypes.string,
+    itemRemoveAreaStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     maxCount: PropTypes.number,
     minCount: PropTypes.number,
     name: PropTypes.string.isRequired,
     onChanging: PropTypes.func,
     onChanged: PropTypes.func,
     onSubmit: PropTypes.func,
+    removeButtonText: PropTypes.string,
+    style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     value: PropTypes.arrayOf(PropTypes.any),
   };
 
   static defaultProps = {
+    addButtonText: '+',
+    addItemRowStyle: {},
     buttonClassName: null,
+    buttonStyle: {},
     className: null,
     errors: undefined,
     itemAreaClassName: null,
+    itemAreaStyle: {},
     itemClassName: null,
+    itemStyle: {},
     itemRemoveAreaClassName: null,
+    itemRemoveAreaStyle: {},
     minCount: 0,
     maxCount: undefined,
     onChanging() {},
     onChanged() {},
     onSubmit() {},
+    removeButtonText: '–',
+    style: {},
     value: [],
   };
 
@@ -208,7 +224,7 @@ class FormList extends Component {
   }
 
   renderArrayItems() {
-    const { buttonClassName, children, errors, itemAreaClassName, itemClassName, itemRemoveAreaClassName, minCount, name, onSubmit } = this.props;
+    const { buttonClassName, buttonStyle, children, errors, itemAreaClassName, itemAreaStyle, itemClassName, itemStyle, itemRemoveAreaClassName, itemRemoveAreaStyle, minCount, name, onSubmit, removeButtonText } = this.props;
     const { value } = this.state;
 
     // We'll do these checks just once, outside of the `value.map`, for speed.
@@ -266,12 +282,15 @@ class FormList extends Component {
         return recursivelyCloneElements(child);
       });
 
+      let resolvedItemStyle = index + 1 === value.length ? styles.lastItem : styles.item;
+      resolvedItemStyle = { ...resolvedItemStyle, ...itemStyle };
+
       return (
-        <div className={itemClassName} key={itemName} style={index + 1 === value.length ? styles.lastItem : styles.item}>
-          {hasMoreThanMinCount && <div className={itemRemoveAreaClassName} style={styles.itemLeft}>
-            <button type="button" className={buttonClassName} onClick={this.handleClickRemoveItem(index)} style={styles.button}>–</button>
+        <div className={itemClassName} key={itemName} style={resolvedItemStyle}>
+          {hasMoreThanMinCount && <div className={itemRemoveAreaClassName} style={{ ...styles.itemLeft, ...itemRemoveAreaStyle }}>
+            <button type="button" className={buttonClassName} onClick={this.handleClickRemoveItem(index)} style={{ ...styles.button, ...buttonStyle }}>{removeButtonText}</button>
           </div>}
-          <div className={itemAreaClassName} style={styles.itemRight}>
+          <div className={itemAreaClassName} style={{ ...styles.itemRight, ...itemAreaStyle }}>
             {kids}
           </div>
         </div>
@@ -280,23 +299,25 @@ class FormList extends Component {
   }
 
   renderAddItemButton() {
-    const { buttonClassName, itemClassName } = this.props;
+    const { addButtonText, addItemRowStyle, buttonClassName, itemClassName } = this.props;
     const { value } = this.state;
+    let resolvedStyle = value.length === 0 ? {} : styles.addItemRow;
+    resolvedStyle = { ...resolvedStyle, ...addItemRowStyle };
     return (
-      <div className={itemClassName} style={value.length === 0 ? {} : styles.addItemRow}>
-        <button type="button" className={buttonClassName} onClick={this.handleClickAddItem} style={styles.button}>+</button>
+      <div className={itemClassName} style={resolvedStyle}>
+        <button type="button" className={buttonClassName} onClick={this.handleClickAddItem} style={styles.button}>{addButtonText}</button>
       </div>
     );
   }
 
   render() {
-    const { className, maxCount } = this.props;
+    const { className, maxCount, style } = this.props;
     let { value } = this.state;
     if (!value) value = [];
     const hasFewerThanMaxCount = value.length < maxCount || maxCount === undefined || maxCount === null;
 
     return (
-      <div className={className} style={styles.list}>
+      <div className={className} style={{ ...styles.list, ...style }}>
         {this.renderArrayItems()}
         {hasFewerThanMaxCount && this.renderAddItemButton()}
       </div>

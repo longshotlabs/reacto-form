@@ -14,8 +14,11 @@ class SelectCheckboxInput extends Component {
     ...customPropTypes.inputs,
     className: PropTypes.string,
     checkboxClassName: PropTypes.string,
+    checkboxStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     itemClassName: PropTypes.string,
+    itemStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     labelClassName: PropTypes.string,
+    labelStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     options: customPropTypes.options,
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     value: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -28,8 +31,11 @@ class SelectCheckboxInput extends Component {
   static defaultProps = {
     className: null,
     checkboxClassName: null,
+    checkboxStyle: {},
     itemClassName: null,
+    itemStyle: {},
     labelClassName: null,
+    labelStyle: {},
     emptyLabel: '(Select One)',
     isReadOnly: false,
     name: null,
@@ -120,20 +126,21 @@ class SelectCheckboxInput extends Component {
   }
 
   renderOptions() {
-    const { checkboxClassName, isReadOnly, itemClassName, labelClassName, options } = this.props;
+    const { checkboxClassName, checkboxStyle, isReadOnly, itemClassName, itemStyle, labelClassName, labelStyle, options } = this.props;
     const { value } = this.state;
 
     return (options || []).map((option) => {
       const id = uniqueId('SelectCheckboxInput_');
       return (
-        <div className={itemClassName} key={option.id || `${option.value}`}>
-          <label htmlFor={id} className={labelClassName}>
+        <div className={itemClassName} key={option.id || `${option.value}`} style={itemStyle}>
+          <label htmlFor={id} className={labelClassName} style={labelStyle}>
             <input
               checked={value.indexOf(option.value) > -1}
               className={checkboxClassName}
               id={id}
               onChange={this.getOnChangeHandler(option.value)}
               readOnly={isReadOnly}
+              style={checkboxStyle}
               type="checkbox"
               value={option.value}
             />

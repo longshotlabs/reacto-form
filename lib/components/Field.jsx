@@ -8,22 +8,14 @@ class Field extends Component {
   static isComposableFormField = true;
 
   static propTypes = {
-    // Any number of inputs or other elements, but at least 1 input
     children: PropTypes.node.isRequired,
-    // Additional classes to add to the field wrapper div
     className: PropTypes.string,
     errors: customPropTypes.errors,
-    // Label is usually a string but could be elements
     label: PropTypes.node,
-    // Additional classes to add to the label element
     labelClassName: PropTypes.string,
-    // "for" attribute for <label>
     labelFor: PropTypes.string,
-    // Set to true if this field is required. Results in data-required
-    // boolean attribute being added, which can be used for styling or
-    // displaying an asterisk.
+    labelStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     isRequired: PropTypes.bool,
-    // Styles object for the field wrapper div
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
@@ -33,29 +25,31 @@ class Field extends Component {
     label: null,
     labelClassName: null,
     labelFor: null,
+    labelStyle: {},
     isRequired: false,
     style: {},
   };
 
   getClassName() {
-    const { className, errors } = this.props;
-    return `reacto-form-field ${className || ''} ${Array.isArray(errors) && errors.length > 0 ? 'has-error' : ''}`.trim();
+    const { className, errors, isRequired } = this.props;
+    const errorClass = Array.isArray(errors) && errors.length > 0 ? 'has-error' : '';
+    const requiredClass = isRequired ? 'required' : '';
+    return `${className || ''} ${errorClass} ${requiredClass}`.trim();
   }
 
   renderLabel() {
-    const { label, labelClassName, labelFor } = this.props;
-    const className = `reacto-form-label ${labelClassName || ''}`.trim();
+    const { label, labelClassName, labelFor, labelStyle } = this.props;
 
     return (
-      <label className={className} htmlFor={labelFor}>{label}</label>
+      <label className={labelClassName} htmlFor={labelFor} style={labelStyle}>{label}</label>
     );
   }
 
   render() {
-    const { children, isRequired, label, style } = this.props;
+    const { children, label, style } = this.props;
 
     return (
-      <div className={this.getClassName()} data-required={isRequired} style={style}>
+      <div className={this.getClassName()} style={style}>
         {!isEmpty(label) && this.renderLabel()}
         {children}
       </div>

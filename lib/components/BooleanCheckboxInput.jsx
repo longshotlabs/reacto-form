@@ -10,7 +10,7 @@ class BooleanCheckboxInput extends Component {
   static propTypes = {
     ...customPropTypes.inputs,
     className: PropTypes.string,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
     value: PropTypes.bool,
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
