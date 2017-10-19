@@ -47,7 +47,7 @@ class Form extends Component {
     style: {},
     validateOn: 'submit',
     validateOnWhenInvalid: 'changing',
-    validator: () => Promise.resolve([]),
+    validator: undefined,
     value: {},
   };
 
@@ -165,7 +165,13 @@ class Form extends Component {
       .then((errors) => {
         if (!Array.isArray(errors)) throw new Error('Resolved with non-array');
         if (logErrorsOnSubmit && errors.length > 0) console.error(errors);
-        return onSubmit(value, errors.length === 0)
+
+        return Promise.resolve()
+          .then(() => {
+            // onSubmit should ideally return a Promise so that we can wait
+            // for submission to complete, but we won't worry about it if it doesn't
+            return onSubmit(value, errors.length === 0);
+          })
           .then(() => {
             this.resetValue();
           })
