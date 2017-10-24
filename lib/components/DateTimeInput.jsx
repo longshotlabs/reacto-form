@@ -55,25 +55,24 @@ class DateTimeInput extends Component {
   };
 
   static defaultProps = {
-    className: null,
-    dayInputClassName: null,
-    dayInputStyle: null,
+    className: undefined,
+    dayInputClassName: undefined,
+    dayInputStyle: {},
     isReadOnly: false,
-    maxLength: null,
-    monthSelectClassName: null,
-    monthSelectStyle: null,
-    name: null,
+    monthSelectClassName: undefined,
+    monthSelectStyle: {},
+    name: undefined,
     onChanged() {},
     onChanging() {},
-    placeholder: null,
-    style: null,
-    timeInputClassName: null,
-    timeInputStyle: null,
+    placeholder: undefined,
+    style: {},
+    timeInputClassName: undefined,
+    timeInputStyle: {},
     timezone: undefined,
     type: 'text',
-    value: '',
-    yearInputClassName: null,
-    yearInputStyle: null,
+    value: undefined,
+    yearInputClassName: undefined,
+    yearInputStyle: {},
   };
 
   constructor(props) {
@@ -99,20 +98,38 @@ class DateTimeInput extends Component {
 
   onChangingDay = (event) => {
     let { value: dayValue } = event.target;
-    dayValue = dayValue.trim();
+    if (typeof dayValue === 'string') dayValue = dayValue.trim();
     this.handleChange({ dayValue }, false);
   };
 
   onChangingYear = (event) => {
     let { value: yearValue } = event.target;
-    yearValue = yearValue.trim();
+    if (typeof yearValue === 'string') yearValue = yearValue.trim();
     this.handleChange({ yearValue }, false);
   };
 
   onChangingTime = (event) => {
     let { value: timeValue } = event.target;
-    timeValue = timeValue.trim();
+    if (typeof timeValue === 'string') timeValue = timeValue.trim();
     this.handleChange({ timeValue }, false);
+  };
+
+  onChangedDay = (event) => {
+    let { value: dayValue } = event.target;
+    if (typeof dayValue === 'string') dayValue = dayValue.trim();
+    this.handleChange({ dayValue }, true);
+  };
+
+  onChangedYear = (event) => {
+    let { value: yearValue } = event.target;
+    if (typeof yearValue === 'string') yearValue = yearValue.trim();
+    this.handleChange({ yearValue }, true);
+  };
+
+  onChangedTime = (event) => {
+    let { value: timeValue } = event.target;
+    if (typeof timeValue === 'string') timeValue = timeValue.trim();
+    this.handleChange({ timeValue }, true);
   };
 
   onChangeMonth = (event) => {
@@ -127,7 +144,7 @@ class DateTimeInput extends Component {
 
   resetValue() {
     const { value, moment, timezone } = this.props;
-    this.setState(getDateTimeValuesFromDate(value, moment, timezone));
+    this.handleChange(getDateTimeValuesFromDate(value, moment, timezone), true);
   }
 
   handleChange(stateChanges, isChanged) {
@@ -137,17 +154,21 @@ class DateTimeInput extends Component {
       ...this.state,
       ...stateChanges,
     }, moment, timezone);
-    if (!isEqual(date, this.lastValue)) {
-      this.lastValue = date;
+    if (!isEqual(date, this.lastChangingValue)) {
+      this.lastChangingValue = date;
       onChanging(date);
-      if (isChanged) onChanged(date);
+    }
+    if (isChanged && !isEqual(date, this.lastChangedValue)) {
+      this.lastChangedValue = date;
+      onChanged(date);
     }
   }
 
   // Input is dirty if value prop doesn't match value state. Whenever a changed
   // value prop comes in, we reset state to that, thus becoming clean.
   isDirty() {
-    return !isEqual(this.state.value, this.props.value);
+    const { moment, timezone, value } = this.props;
+    return !isEqual(this.state, getDateTimeValuesFromDate(value, moment, timezone));
   }
 
   render() {
@@ -191,6 +212,7 @@ class DateTimeInput extends Component {
         </select>
         <input
           className={dayInputClassName}
+          onBlur={this.onChangedDay}
           onChange={this.onChangingDay}
           readOnly={isReadOnly}
           style={{ ...styles.dayInput, ...dayInputStyle }}
@@ -200,6 +222,7 @@ class DateTimeInput extends Component {
         />
         <input
           className={yearInputClassName}
+          onBlur={this.onChangedYear}
           onChange={this.onChangingYear}
           readOnly={isReadOnly}
           style={{ ...styles.yearInput, ...yearInputStyle }}
@@ -209,6 +232,7 @@ class DateTimeInput extends Component {
         />
         <input
           className={timeInputClassName}
+          onBlur={this.onChangedTime}
           onChange={this.onChangingTime}
           readOnly={isReadOnly}
           style={{ ...styles.timeInput, ...timeInputStyle }}

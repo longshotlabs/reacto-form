@@ -21,16 +21,16 @@ class SelectInput extends Component {
   };
 
   static defaultProps = {
-    className: null,
+    className: undefined,
     emptyLabel: '(Select One)',
     isReadOnly: false,
-    name: null,
+    name: undefined,
     onChanged() {},
     onChanging() {},
     options: [],
-    placeholder: null,
-    style: null,
-    value: null,
+    placeholder: undefined,
+    style: {},
+    value: undefined,
   };
 
   constructor(props) {
@@ -39,7 +39,7 @@ class SelectInput extends Component {
     this.validateOptions(props.options);
 
     this.state = {
-      value: props.value,
+      value: props.value || null,
     };
   }
 
@@ -90,7 +90,9 @@ class SelectInput extends Component {
   }
 
   resetValue() {
-    this.setState({ value: this.props.value });
+    const value = this.props.value;
+    this.setState({ value });
+    this.handleChanged(value);
   }
 
   handleChanged(value) {

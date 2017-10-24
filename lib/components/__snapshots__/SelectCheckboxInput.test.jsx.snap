@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  className={undefined}
+  style={Object {}}
+>
+  <div
+    className={undefined}
+    style={Object {}}
+  >
+    <label
+      className={undefined}
+      htmlFor="SelectCheckboxInput_85"
+      style={Object {}}
+    >
+      <input
+        checked={false}
+        className={undefined}
+        id="SelectCheckboxInput_85"
+        onChange={[Function]}
+        readOnly={false}
+        style={Object {}}
+        type="checkbox"
+        value="a"
+      />
+      A
+    </label>
+  </div>
+  <div
+    className={undefined}
+    style={Object {}}
+  >
+    <label
+      className={undefined}
+      htmlFor="SelectCheckboxInput_86"
+      style={Object {}}
+    >
+      <input
+        checked={false}
+        className={undefined}
+        id="SelectCheckboxInput_86"
+        onChange={[Function]}
+        readOnly={false}
+        style={Object {}}
+        type="checkbox"
+        value="b"
+      />
+      B
+    </label>
+  </div>
+  <div
+    className={undefined}
+    style={Object {}}
+  >
+    <label
+      className={undefined}
+      htmlFor="SelectCheckboxInput_87"
+      style={Object {}}
+    >
+      <input
+        checked={false}
+        className={undefined}
+        id="SelectCheckboxInput_87"
+        onChange={[Function]}
+        readOnly={false}
+        style={Object {}}
+        type="checkbox"
+        value="c"
+      />
+      C
+    </label>
+  </div>
+</div>
+`;

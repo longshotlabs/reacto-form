@@ -16,13 +16,12 @@ class BooleanCheckboxInput extends Component {
   };
 
   static defaultProps = {
-    className: null,
+    className: undefined,
     isReadOnly: false,
-    maxLength: null,
-    name: null,
+    name: undefined,
     onChanged() {},
     onChanging() {},
-    style: null,
+    style: {},
     value: undefined,
   };
 
@@ -46,7 +45,7 @@ class BooleanCheckboxInput extends Component {
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (value !== nextValue) {
       this.setState({ value: nextValue || false });
-      this.handleChange(nextValue);
+      this.handleChange(nextValue || false);
     }
   }
 
@@ -61,7 +60,9 @@ class BooleanCheckboxInput extends Component {
   }
 
   resetValue() {
-    this.setState({ value: this.props.value || false });
+    const value = this.props.value || false;
+    this.setState({ value });
+    this.handleChange(value);
   }
 
   handleChange(checked) {

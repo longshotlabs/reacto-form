@@ -20,11 +20,11 @@ class Field extends Component {
   };
 
   static defaultProps = {
-    className: null,
+    className: undefined,
     errors: undefined,
-    label: null,
-    labelClassName: null,
-    labelFor: null,
+    label: undefined,
+    labelClassName: undefined,
+    labelFor: undefined,
     labelStyle: {},
     isRequired: false,
     style: {},

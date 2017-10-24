@@ -29,22 +29,22 @@ class SelectCheckboxInput extends Component {
   };
 
   static defaultProps = {
-    className: null,
-    checkboxClassName: null,
+    className: undefined,
+    checkboxClassName: undefined,
     checkboxStyle: {},
-    itemClassName: null,
+    itemClassName: undefined,
     itemStyle: {},
-    labelClassName: null,
+    labelClassName: undefined,
     labelStyle: {},
     emptyLabel: '(Select One)',
     isReadOnly: false,
-    name: null,
+    name: undefined,
     onChanged() {},
     onChanging() {},
     options: [],
-    placeholder: null,
-    style: null,
-    value: [],
+    placeholder: undefined,
+    style: {},
+    value: undefined,
   };
 
   constructor(props) {
@@ -53,7 +53,7 @@ class SelectCheckboxInput extends Component {
     this.validateOptions(props.options);
 
     this.state = {
-      value: props.value,
+      value: props.value || [],
     };
   }
 
@@ -67,7 +67,7 @@ class SelectCheckboxInput extends Component {
 
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (!isEqual(value, nextValue)) {
-      this.setState({ value: nextValue });
+      this.setState({ value: nextValue || [] });
       this.handleChanged(nextValue);
     }
 
@@ -91,7 +91,9 @@ class SelectCheckboxInput extends Component {
   }
 
   resetValue() {
-    this.setState({ value: this.props.value });
+    const value = this.props.value;
+    this.setState({ value });
+    this.handleChanged(value);
   }
 
   handleChanged(value) {

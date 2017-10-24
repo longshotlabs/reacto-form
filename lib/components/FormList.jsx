@@ -107,7 +107,7 @@ class FormList extends Component {
     onSubmit() {},
     removeButtonText: '–',
     style: {},
-    value: [],
+    value: undefined,
   };
 
   constructor(props) {

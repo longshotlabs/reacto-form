@@ -17,8 +17,8 @@ class ErrorsBlock extends Component {
   };
 
   static defaultProps = {
-    className: null,
-    errorClassName: {},
+    className: undefined,
+    errorClassName: undefined,
     errors: undefined,
     errorStyle: {},
     names: undefined,

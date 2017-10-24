@@ -38,19 +38,19 @@ class Input extends Component {
 
   static defaultProps = {
     allowLineBreaks: false,
-    className: null,
+    className: undefined,
     convertEmptyStringToNull: true,
     isReadOnly: false,
-    maxLength: null,
-    name: null,
+    maxLength: undefined,
+    name: undefined,
     onChanged() {},
     onChanging() {},
     onSubmit() {},
-    placeholder: null,
-    style: null,
+    placeholder: undefined,
+    style: {},
     trimValue: true,
     type: 'text',
-    value: '',
+    value: undefined,
   };
 
   constructor(props) {
@@ -89,6 +89,7 @@ class Input extends Component {
     let { value } = event.target;
     value = value || '';
     this.setState({ value });
+    this.handleChanging(value);
     this.handleChanged(value);
   };
 
@@ -111,7 +112,10 @@ class Input extends Component {
   }
 
   resetValue() {
-    this.setState({ value: this.props.value || '' });
+    const value = this.props.value || '';
+    this.setState({ value });
+    this.handleChanging(value);
+    this.handleChanged(value);
   }
 
   handleChanged(value) {

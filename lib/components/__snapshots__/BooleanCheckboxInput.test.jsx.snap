@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  className={undefined}
+  style={Object {}}
+>
+  <label
+    htmlFor="BooleanCheckboxInput_7"
+  >
+    <input
+      checked={false}
+      id="BooleanCheckboxInput_7"
+      onChange={[Function]}
+      readOnly={false}
+      type="checkbox"
+      value="true"
+    />
+     
+    LABEL
+  </label>
+</div>
+`;

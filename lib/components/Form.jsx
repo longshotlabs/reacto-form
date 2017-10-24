@@ -48,7 +48,7 @@ class Form extends Component {
     validateOn: 'submit',
     validateOnWhenInvalid: 'changing',
     validator: undefined,
-    value: {},
+    value: undefined,
   };
 
   constructor(props) {

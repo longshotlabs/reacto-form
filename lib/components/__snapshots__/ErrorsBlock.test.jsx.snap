@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders all error messages 1`] = `
+<div
+  className={undefined}
+  style={Object {}}
+>
+  <div
+    className={undefined}
+    data-name="a"
+    style={Object {}}
+  >
+    Message One
+  </div>
+  <div
+    className={undefined}
+    data-name="b"
+    style={Object {}}
+  >
+    Message Two
+  </div>
+</div>
+`;
+
+exports[`renders nothing when there are no errors 1`] = `null`;

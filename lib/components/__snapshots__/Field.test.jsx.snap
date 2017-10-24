@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders with label 1`] = `
+<div
+  className=""
+  style={Object {}}
+>
+  <label
+    className={undefined}
+    htmlFor={undefined}
+    style={Object {}}
+  >
+    Foo
+  </label>
+  <p>
+    Text above
+  </p>
+  <input
+    className={undefined}
+    maxLength={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder={undefined}
+    readOnly={false}
+    style={Object {}}
+    type="text"
+    value=""
+  />
+  <p>
+    Text below
+  </p>
+</div>
+`;
+
+exports[`renders with no label 1`] = `
+<div
+  className=""
+  style={Object {}}
+>
+  <p>
+    Text above
+  </p>
+  <input
+    className={undefined}
+    maxLength={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder={undefined}
+    readOnly={false}
+    style={Object {}}
+    type="text"
+    value=""
+  />
+  <p>
+    Text below
+  </p>
+</div>
+`;
+
+exports[`renders with other props 1`] = `
+<div
+  className="className"
+  style={
+    Object {
+      "color": "#fff",
+    }
+  }
+>
+  <label
+    className="labelClassName"
+    htmlFor="labelFor"
+    style={
+      Object {
+        "color": "#000",
+      }
+    }
+  >
+    Foo
+  </label>
+  <p>
+    Blah
+  </p>
+</div>
+`;
