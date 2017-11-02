@@ -4,7 +4,8 @@ import React from 'react';
 // and then runs tests for it to be sure that it matches the Composable Forms Input Spec
 export default function registerInputTests({
   component: Input,
-  // Default and the three example values must all be different
+  // exampleValueOne must be different from defaultValue && exampleValueTwo, but
+  // defaultValue && exampleValueTwo may be the same
   defaultValue,
   exampleValueOne,
   exampleValueTwo,
@@ -39,17 +40,21 @@ export default function registerInputTests({
     onChanging.mockClear();
     onChanged.mockClear();
 
-    simulateChanging(wrapper, exampleValueOne);
+    // Inputs need not have a way of "changing" but must call only onChanging
+    // and not onChanged if they do.
+    if (typeof simulateChanging === 'function') {
+      simulateChanging(wrapper, exampleValueOne);
+      expect(onChanging).toHaveBeenCalledTimes(1);
+      expect(onChanging).toHaveBeenLastCalledWith(exampleValueOne);
+      expect(onChanged).toHaveBeenCalledTimes(0);
+    }
+
     simulateChanged(wrapper, exampleValueOne);
-
-    expect(onChanging).toHaveBeenCalledTimes(1);
     expect(onChanged).toHaveBeenCalledTimes(1);
-
-    expect(onChanging).toHaveBeenLastCalledWith(exampleValueOne);
     expect(onChanged).toHaveBeenLastCalledWith(exampleValueOne);
   });
 
-  if (simulateSubmit) {
+  if (typeof simulateSubmit === 'function') {
     test(`${inputName} calls onSubmit`, () => {
       const onSubmit = jest.fn();
 
@@ -84,7 +89,7 @@ export default function registerInputTests({
     wrapper.setProps({ value: exampleValueTwo });
     expect(wrapper.instance().getValue()).toEqual(exampleValueTwo);
 
-    simulateChanging(wrapper, exampleValueOne);
+    simulateChanged(wrapper, exampleValueOne);
     expect(wrapper.instance().getValue()).toEqual(exampleValueOne);
   });
 
@@ -96,7 +101,7 @@ export default function registerInputTests({
     wrapper.setProps({ value: exampleValueTwo });
     expect(wrapper.instance().isDirty()).toBe(false);
 
-    simulateChanging(wrapper, exampleValueOne);
+    simulateChanged(wrapper, exampleValueOne);
     expect(wrapper.instance().isDirty()).toBe(true);
   });
 
@@ -107,7 +112,6 @@ export default function registerInputTests({
     const wrapper = mount(<Input name="test" onChanging={onChanging} onChanged={onChanged} value={exampleValueOne} options={options} {...props} />);
     expect(wrapper.instance().getValue()).toEqual(exampleValueOne);
 
-    simulateChanging(wrapper, exampleValueTwo);
     simulateChanged(wrapper, exampleValueTwo);
     expect(wrapper.instance().getValue()).toEqual(exampleValueTwo);
 
@@ -122,5 +126,26 @@ export default function registerInputTests({
 
     expect(onChanging).toHaveBeenLastCalledWith(exampleValueOne);
     expect(onChanged).toHaveBeenLastCalledWith(exampleValueOne);
+  });
+
+  test(`${inputName} setValue works and calls onChanging and onChanged`, () => {
+    const onChanging = jest.fn();
+    const onChanged = jest.fn();
+
+    const wrapper = mount(<Input name="test" onChanging={onChanging} onChanged={onChanged} value={exampleValueOne} options={options} {...props} />);
+    expect(wrapper.instance().getValue()).toEqual(exampleValueOne);
+
+    onChanging.mockClear();
+    onChanged.mockClear();
+
+    wrapper.instance().setValue(exampleValueTwo);
+    expect(wrapper.instance().getValue()).toEqual(exampleValueTwo);
+    expect(wrapper.instance().isDirty()).toBe(true);
+
+    expect(onChanging).toHaveBeenCalledTimes(1);
+    expect(onChanged).toHaveBeenCalledTimes(1);
+
+    expect(onChanging).toHaveBeenLastCalledWith(exampleValueTwo);
+    expect(onChanged).toHaveBeenLastCalledWith(exampleValueTwo);
   });
 }

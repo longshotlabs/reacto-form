@@ -142,9 +142,13 @@ class DateTimeInput extends Component {
     return getDateFromDateTimeValues(this.state, moment, timezone);
   }
 
-  resetValue() {
-    const { value, moment, timezone } = this.props;
+  setValue(value) {
+    const { moment, timezone } = this.props;
     this.handleChange(getDateTimeValuesFromDate(value, moment, timezone), true);
+  }
+
+  resetValue() {
+    this.setValue(this.props.value);
   }
 
   handleChange(stateChanges, isChanged) {

@@ -18,12 +18,6 @@ registerInputTests({
   exampleValueTwo: ['b', 'c'],
   mount,
   options,
-  simulateChanging(wrapper, value) {
-    wrapper.find('input').forEach((checkbox) => {
-      const checked = value.indexOf(checkbox.prop('value')) > -1;
-      checkbox.simulate('change', { target: { checked } });
-    });
-  },
   simulateChanged(wrapper, value) {
     wrapper.find('input').forEach((checkbox) => {
       const checked = value.indexOf(checkbox.prop('value')) > -1;

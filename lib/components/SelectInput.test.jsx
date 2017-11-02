@@ -29,9 +29,6 @@ registerInputTests({
   exampleValueTwo: 'b',
   mount,
   options: stringOptions,
-  simulateChanging(wrapper, value) {
-    wrapper.find('select').simulate('change', { target: { value } });
-  },
   simulateChanged(wrapper, value) {
     wrapper.find('select').simulate('change', { target: { value } });
   },
@@ -45,9 +42,6 @@ registerInputTests({
   exampleValueTwo: 2,
   mount,
   options: numberOptions,
-  simulateChanging(wrapper, value) {
-    wrapper.find('select').simulate('change', { target: { value } });
-  },
   simulateChanged(wrapper, value) {
     wrapper.find('select').simulate('change', { target: { value } });
   },
@@ -61,9 +55,6 @@ registerInputTests({
   exampleValueTwo: false,
   mount,
   options: booleanOptions,
-  simulateChanging(wrapper, value) {
-    wrapper.find('select').simulate('change', { target: { value } });
-  },
   simulateChanged(wrapper, value) {
     wrapper.find('select').simulate('change', { target: { value } });
   },

@@ -53,8 +53,7 @@ class SelectInput extends Component {
 
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (!isEqual(value, nextValue)) {
-      this.setState({ value: nextValue });
-      this.handleChanged(nextValue);
+      this.setValue(nextValue);
     }
 
     if (!isEqual(options, nextOptions)) {
@@ -81,18 +80,20 @@ class SelectInput extends Component {
       }
     }
 
-    this.setState({ value });
-    this.handleChanged(value);
+    this.setValue(value);
   };
 
   getValue() {
     return this.state.value;
   }
 
-  resetValue() {
-    const value = this.props.value;
+  setValue(value) {
     this.setState({ value });
     this.handleChanged(value);
+  }
+
+  resetValue() {
+    this.setValue(this.props.value);
   }
 
   handleChanged(value) {

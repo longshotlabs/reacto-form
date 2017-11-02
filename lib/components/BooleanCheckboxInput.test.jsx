@@ -12,9 +12,6 @@ registerInputTests({
   exampleValueTwo: false,
   mount,
   props: { label: 'LABEL' },
-  simulateChanging(wrapper, value) {
-    wrapper.find('input').simulate('change', { target: { checked: !!value } });
-  },
   simulateChanged(wrapper, value) {
     wrapper.find('input').simulate('change', { target: { checked: !!value } });
   },

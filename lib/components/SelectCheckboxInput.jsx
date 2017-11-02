@@ -67,8 +67,7 @@ class SelectCheckboxInput extends Component {
 
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (!isEqual(value, nextValue)) {
-      this.setState({ value: nextValue || [] });
-      this.handleChanged(nextValue);
+      this.setValue(nextValue);
     }
 
     if (!isEqual(options, nextOptions)) {
@@ -81,8 +80,7 @@ class SelectCheckboxInput extends Component {
       const { checked } = event.target;
       const { value: arrayValue } = this.state;
       const value = checked ? union(arrayValue, [optionValue]) : without(arrayValue, optionValue);
-      this.setState({ value });
-      this.handleChanged(value);
+      this.setValue(value);
     };
   }
 
@@ -90,10 +88,14 @@ class SelectCheckboxInput extends Component {
     return this.state.value;
   }
 
-  resetValue() {
-    const value = this.props.value;
+  setValue(value) {
+    value = value || [];
     this.setState({ value });
     this.handleChanged(value);
+  }
+
+  resetValue() {
+    this.setValue(this.props.value);
   }
 
   handleChanged(value) {

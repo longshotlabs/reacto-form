@@ -6,11 +6,11 @@ exports[`renders 1`] = `
   style={Object {}}
 >
   <label
-    htmlFor="BooleanCheckboxInput_7"
+    htmlFor="BooleanCheckboxInput_8"
   >
     <input
       checked={false}
-      id="BooleanCheckboxInput_7"
+      id="BooleanCheckboxInput_8"
       onChange={[Function]}
       readOnly={false}
       type="checkbox"

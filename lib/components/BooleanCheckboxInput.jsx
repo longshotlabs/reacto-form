@@ -50,19 +50,20 @@ class BooleanCheckboxInput extends Component {
   }
 
   onChange = (event) => {
-    const { checked } = event.target;
-    this.setState({ value: checked });
-    this.handleChange(checked);
+    this.setValue(event.target.checked);
   };
 
   getValue() {
     return this.state.value;
   }
 
-  resetValue() {
-    const value = this.props.value || false;
+  setValue(value) {
     this.setState({ value });
     this.handleChange(value);
+  }
+
+  resetValue() {
+    this.setValue(this.props.value || false);
   }
 
   handleChange(checked) {

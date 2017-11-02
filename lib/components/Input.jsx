@@ -69,14 +69,11 @@ class Input extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
-    let { value: nextValue } = nextProps;
+    const { value: nextValue } = nextProps;
 
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (value !== nextValue) {
-      nextValue = nextValue || '';
-      this.setState({ value: nextValue });
-      this.handleChanging(nextValue);
-      this.handleChanged(nextValue);
+      this.setValue(nextValue);
     }
   }
 
@@ -86,11 +83,7 @@ class Input extends Component {
   };
 
   onBlur = (event) => {
-    let { value } = event.target;
-    value = value || '';
-    this.setState({ value });
-    this.handleChanging(value);
-    this.handleChanged(value);
+    this.setValue(event.target.value);
   };
 
   onChange = (event) => {
@@ -104,6 +97,13 @@ class Input extends Component {
     return this.cleanValue(this.state.value);
   }
 
+  setValue(value) {
+    value = value || '';
+    this.setState({ value });
+    this.handleChanging(value);
+    this.handleChanged(value);
+  }
+
   cleanValue(value) {
     const { convertEmptyStringToNull, trimValue } = this.props;
     let outputValue = trimValue ? value.trim() : value;
@@ -112,10 +112,7 @@ class Input extends Component {
   }
 
   resetValue() {
-    const value = this.props.value || '';
-    this.setState({ value });
-    this.handleChanging(value);
-    this.handleChanged(value);
+    this.setValue(this.props.value);
   }
 
   handleChanged(value) {
