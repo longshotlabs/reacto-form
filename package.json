@@ -2,7 +2,7 @@
   "name": "reacto-form",
   "version": "0.0.1",
   "description": "A reference implementation of the Composable Form Specification for React (see forms.dairystatedesigns.com)",
-  "author": "Eric Dobbertin <aldeed@gmail.com>",
+  "author": "Dairy State Designs (http://dairystatedesigns.com/)",
   "license": "MIT",
   "repository": {
     "type": "git",
