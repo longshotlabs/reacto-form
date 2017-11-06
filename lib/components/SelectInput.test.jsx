@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
+import { testInput } from 'composable-form-tests';
 import SelectInput from './SelectInput';
-import registerInputTests from '../../tests/registerInputTests';
 
 const stringOptions = [
   { label: 'A', value: 'a' },
@@ -22,7 +22,7 @@ const booleanOptions = [
 ];
 
 // Run generic Input tests that should pass for any Composable Forms Spec input
-registerInputTests({
+testInput({
   component: SelectInput,
   defaultValue: null,
   exampleValueOne: 'a',
@@ -35,7 +35,7 @@ registerInputTests({
 });
 
 // Test with number options
-registerInputTests({
+testInput({
   component: SelectInput,
   defaultValue: null,
   exampleValueOne: 1,
@@ -48,7 +48,7 @@ registerInputTests({
 });
 
 // Test with boolean options
-registerInputTests({
+testInput({
   component: SelectInput,
   defaultValue: null,
   exampleValueOne: true,

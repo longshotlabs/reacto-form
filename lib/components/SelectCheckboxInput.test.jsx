@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
+import { testInput } from 'composable-form-tests';
 import SelectCheckboxInput from './SelectCheckboxInput';
-import registerInputTests from '../../tests/registerInputTests';
 
 const options = [
   { label: 'A', value: 'a' },
@@ -11,7 +11,7 @@ const options = [
 ];
 
 // Run generic Input tests that should pass for any Composable Forms Spec input
-registerInputTests({
+testInput({
   component: SelectCheckboxInput,
   defaultValue: [],
   exampleValueOne: ['a'],

@@ -2,14 +2,14 @@ import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import moment from 'moment-timezone';
+import { testInput } from 'composable-form-tests';
 import DateTimeInput from './DateTimeInput';
 import getDateTimeValuesFromDate from '../shared/getDateTimeValuesFromDate';
-import registerInputTests from '../../tests/registerInputTests';
 
 const timezone = 'America/Chicago';
 
 // Run generic Input tests that should pass for any Composable Forms Spec input
-registerInputTests({
+testInput({
   component: DateTimeInput,
   defaultValue: null,
   exampleValueOne: new Date('2017-01-01T00:00:00.000'),

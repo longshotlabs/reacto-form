@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
+import { testInput } from 'composable-form-tests';
 import Input from './Input';
-import registerInputTests from '../../tests/registerInputTests';
 
 // Run generic Input tests that should pass for any Composable Forms Spec input
-registerInputTests({
+testInput({
   component: Input,
   defaultValue: null,
   exampleValueOne: 'ONE',
