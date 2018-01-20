@@ -5,7 +5,7 @@ import uniqueId from 'lodash.uniqueid';
 import customPropTypes from '../shared/propTypes';
 
 class BooleanCheckboxInput extends Component {
-  static isComposableFormInput = true;
+  static isFormInput = true;
 
   static propTypes = {
     ...customPropTypes.inputs,

@@ -4,8 +4,8 @@ import Form from './Form';
 import FormList from './FormList';
 import Input from './Input';
 
-test('has isComposableFormList property set to true', () => {
-  expect(FormList.isComposableFormList).toBe(true);
+test('has isFormList property set to true', () => {
+  expect(FormList.isFormList).toBe(true);
 });
 
 test('snapshot Input child', () => {

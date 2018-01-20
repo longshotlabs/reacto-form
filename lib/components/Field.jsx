@@ -5,7 +5,7 @@ import isEmpty from 'lodash.isempty';
 import customPropTypes from '../shared/propTypes';
 
 class Field extends Component {
-  static isComposableFormField = true;
+  static isFormField = true;
 
   static propTypes = {
     children: PropTypes.node.isRequired,

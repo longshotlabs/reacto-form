@@ -5,7 +5,7 @@ import isEqual from 'lodash.isequal';
 import customPropTypes from '../shared/propTypes';
 
 class SelectInput extends Component {
-  static isComposableFormInput = true;
+  static isFormInput = true;
 
   static propTypes = {
     ...customPropTypes.inputs,

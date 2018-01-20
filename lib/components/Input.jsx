@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import customPropTypes from '../shared/propTypes';
 
 class Input extends Component {
-  static isComposableFormInput = true;
+  static isFormInput = true;
 
   static propTypes = {
     ...customPropTypes.inputs,

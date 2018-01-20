@@ -5,8 +5,8 @@ import Field from './Field';
 import Form from './Form';
 import Input from './Input';
 
-test('has isComposableForm property set to true', () => {
-  expect(Form.isComposableForm).toBe(true);
+test('has isForm property set to true', () => {
+  expect(Form.isForm).toBe(true);
 });
 
 test('form snapshot 1', () => {

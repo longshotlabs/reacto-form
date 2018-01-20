@@ -4,8 +4,8 @@ import renderer from 'react-test-renderer';
 import Field from './Field';
 import Input from './Input';
 
-test('has isComposableFormField property set to true', () => {
-  expect(Field.isComposableFormField).toBe(true);
+test('has isFormField property set to true', () => {
+  expect(Field.isFormField).toBe(true);
 });
 
 test('renders with no label', () => {

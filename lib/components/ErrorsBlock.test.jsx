@@ -2,8 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import ErrorsBlock from './ErrorsBlock';
 
-test('has isComposableFormErrors property set to true', () => {
-  expect(ErrorsBlock.isComposableFormErrors).toBe(true);
+test('has isFormErrors property set to true', () => {
+  expect(ErrorsBlock.isFormErrors).toBe(true);
 });
 
 test('renders all error messages', () => {

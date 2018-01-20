@@ -5,7 +5,7 @@ import isEmpty from 'lodash.isempty';
 import customPropTypes from '../shared/propTypes';
 
 class ErrorsBlock extends Component {
-  static isComposableFormErrors = true;
+  static isFormErrors = true;
 
   static propTypes = {
     className: PropTypes.string,

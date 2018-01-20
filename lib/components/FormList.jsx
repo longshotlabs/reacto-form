@@ -60,7 +60,7 @@ const styles = {
 };
 
 class FormList extends Component {
-  static isComposableFormList = true;
+  static isFormList = true;
 
   static propTypes = {
     addButtonText: PropTypes.string,
@@ -232,14 +232,14 @@ class FormList extends Component {
     let itemChild;
     let errorsChild;
     React.Children.forEach(children, (child) => {
-      if (child.type.isComposableFormList) {
+      if (child.type.isFormList) {
         throw new Error('reacto-form FormList: FormList may not be a child of FormList');
       }
-      if (child.type.isComposableForm || child.type.isComposableFormInput) {
+      if (child.type.isForm || child.type.isFormInput) {
         if (itemChild) throw new Error('reacto-form FormList: FormList must have exactly one Input or Form child');
         itemChild = child;
       }
-      if (child.type.isComposableFormErrors) {
+      if (child.type.isFormErrors) {
         if (errorsChild) throw new Error('reacto-form FormList: FormList may have no more than one ErrorsBlock child');
         errorsChild = child;
       }
@@ -252,10 +252,10 @@ class FormList extends Component {
     return value.map((itemValue, index) => {
       const itemName = `${name}[${index}]`;
       const kids = React.Children.map(children, (child) => {
-        if (child.type.isComposableForm || child.type.isComposableFormInput) {
+        if (child.type.isForm || child.type.isFormInput) {
           let filteredErrors = filterErrorsForNames(errors, [itemName], false);
           // Adjust the error names to correct scope
-          if (child.type.isComposableForm) {
+          if (child.type.isForm) {
             filteredErrors = filteredErrors.map((err) => {
               return {
                 ...err,
@@ -273,7 +273,7 @@ class FormList extends Component {
             ref: (el) => { this.elementRefs.push(el); },
             value: itemValue,
           }, recursivelyCloneElements(child.props.children));
-        } else if (child.type.isComposableFormErrors) {
+        } else if (child.type.isFormErrors) {
           return React.cloneElement(child, {
             errors: filterErrorsForNames(errors, [itemName], true),
             names: [itemName],

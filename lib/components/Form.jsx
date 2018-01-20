@@ -17,7 +17,7 @@ function cloneValue(value) {
 }
 
 class Form extends Component {
-  static isComposableForm = true;
+  static isForm = true;
 
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -215,19 +215,19 @@ class Form extends Component {
     const propsFunc = (element) => {
       const newProps = {};
 
-      if (element.type.isComposableFormField) {
+      if (element.type.isFormField) {
         const { name } = element.props;
         if (!name) return {};
         if (element.props.errors === undefined) {
           newProps.errors = filterErrorsForNames(errors, [name], false);
         }
-      } else if (element.type.isComposableFormErrors) {
+      } else if (element.type.isFormErrors) {
         const { names } = element.props;
         if (!names) return {};
         if (element.props.errors === undefined) {
           newProps.errors = filterErrorsForNames(errors, names, true);
         }
-      } else if (element.type.isComposableFormInput || element.type.isComposableForm || element.type.isComposableFormList) {
+      } else if (element.type.isFormInput || element.type.isForm || element.type.isFormList) {
         const { name } = element.props;
         if (!name) return {};
         newProps.onChange = this.getFieldOnChangeHandler(name, element.props.onChange);
@@ -242,7 +242,7 @@ class Form extends Component {
           newProps.errors = filterErrorsForNames(errors, [name], false);
 
           // Adjust the error names to correct scope
-          if (element.type.isComposableForm) {
+          if (element.type.isForm) {
             const canonicalName = bracketsToDots(name);
             newProps.errors = newProps.errors.map((err) => {
               return {
@@ -253,7 +253,7 @@ class Form extends Component {
           }
         }
 
-        if (element.type.isComposableFormInput) {
+        if (element.type.isFormInput) {
           if (typeof element.props.isReadOnly === 'function') {
             newProps.isReadOnly = element.props.isReadOnly(value);
           }
@@ -267,7 +267,7 @@ class Form extends Component {
     return recursivelyCloneElements(children, propsFunc, (element) => {
       // Leave children of nested forms alone because they're handled by that form
       // Leave children of lists alone because the FormList component deals with duplicating them
-      return element.type.isComposableForm || element.type.isComposableFormList;
+      return element.type.isForm || element.type.isFormList;
     });
   }
 

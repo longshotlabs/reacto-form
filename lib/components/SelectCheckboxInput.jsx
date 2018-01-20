@@ -8,7 +8,7 @@ import without from 'lodash.without';
 import customPropTypes from '../shared/propTypes';
 
 class SelectCheckboxInput extends Component {
-  static isComposableFormInput = true;
+  static isFormInput = true;
 
   static propTypes = {
     ...customPropTypes.inputs,
