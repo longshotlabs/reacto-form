@@ -80,7 +80,7 @@ class FormList extends Component {
     minCount: PropTypes.number,
     name: PropTypes.string.isRequired,
     onChanging: PropTypes.func,
-    onChanged: PropTypes.func,
+    onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     removeButtonText: PropTypes.string,
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -103,7 +103,7 @@ class FormList extends Component {
     minCount: 0,
     maxCount: undefined,
     onChanging() {},
-    onChanged() {},
+    onChange() {},
     onSubmit() {},
     removeButtonText: '–',
     style: {},
@@ -183,15 +183,15 @@ class FormList extends Component {
     this.setState({ value });
 
     this.elementRefs.forEach((element) => {
-      if (element) element.resetValue();
+      if (element && typeof element.resetValue === 'function') element.resetValue();
     });
   }
 
   handleChanged(value) {
-    const { onChanged } = this.props;
+    const { onChange } = this.props;
     if (!isEqual(value, this.lastChangedValue)) {
       this.lastChangedValue = value;
-      onChanged(value);
+      onChange(value);
     }
   }
 
@@ -267,7 +267,7 @@ class FormList extends Component {
           return React.cloneElement(child, {
             errors: filteredErrors,
             name: itemName,
-            onChanged: this.getFieldValueHandler(index, true),
+            onChange: this.getFieldValueHandler(index, true),
             onChanging: this.getFieldValueHandler(index, false),
             onSubmit,
             ref: (el) => { this.elementRefs.push(el); },

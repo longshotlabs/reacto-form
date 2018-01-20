@@ -19,7 +19,7 @@ class BooleanCheckboxInput extends Component {
     className: undefined,
     isReadOnly: false,
     name: undefined,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     style: {},
     value: undefined,
@@ -69,9 +69,9 @@ class BooleanCheckboxInput extends Component {
   handleChange(checked) {
     if (this.lastValue === checked) return;
     this.lastValue = checked;
-    const { onChanging, onChanged } = this.props;
+    const { onChanging, onChange } = this.props;
     onChanging(checked);
-    onChanged(checked);
+    onChange(checked);
   }
 
   // Input is dirty if value prop doesn't match value state. Whenever a changed

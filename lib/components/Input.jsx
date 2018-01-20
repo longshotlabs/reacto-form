@@ -43,7 +43,7 @@ class Input extends Component {
     isReadOnly: false,
     maxLength: undefined,
     name: undefined,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     onSubmit() {},
     placeholder: undefined,
@@ -116,11 +116,11 @@ class Input extends Component {
   }
 
   handleChanged(value) {
-    const { onChanged } = this.props;
+    const { onChange } = this.props;
     const outputValue = this.cleanValue(value);
     if (outputValue !== this.lastChangedValue) {
       this.lastChangedValue = outputValue;
-      onChanged(outputValue);
+      onChange(outputValue);
     }
   }
 

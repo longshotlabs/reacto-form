@@ -26,7 +26,7 @@ class Form extends Component {
     logErrorsOnSubmit: PropTypes.bool,
     // Top-level forms and those under FormList do not need a name
     name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-    onChanged: PropTypes.func,
+    onChange: PropTypes.func,
     onChanging: PropTypes.func,
     onSubmit: PropTypes.func,
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -41,7 +41,7 @@ class Form extends Component {
     errors: undefined,
     logErrorsOnSubmit: false,
     name: null,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     onSubmit() {},
     style: {},
@@ -79,7 +79,7 @@ class Form extends Component {
     };
   }
 
-  getFieldOnChangedHandler(fieldName, fieldHandler) {
+  getFieldOnChangeHandler(fieldName, fieldHandler) {
     return (value) => {
       if (fieldHandler) fieldHandler(value);
 
@@ -98,10 +98,10 @@ class Form extends Component {
         )
       ) {
         this.validate().then((updatedErrors) => {
-          this.props.onChanged(this.state.value, updatedErrors.length === 0);
+          this.props.onChange(this.state.value, updatedErrors.length === 0);
         });
       } else {
-        this.props.onChanged(this.state.value, errors.length === 0);
+        this.props.onChange(this.state.value, errors.length === 0);
       }
     };
   }
@@ -153,7 +153,7 @@ class Form extends Component {
   resetValue() {
     this.setState({ errors: [], value: cloneValue(this.props.value) }, () => {
       this.elementRefs.forEach((element) => {
-        if (element) element.resetValue();
+        if (element && typeof element.resetValue === 'function') element.resetValue();
       });
     });
   }
@@ -230,7 +230,7 @@ class Form extends Component {
       } else if (element.type.isComposableFormInput || element.type.isComposableForm || element.type.isComposableFormList) {
         const { name } = element.props;
         if (!name) return {};
-        newProps.onChanged = this.getFieldOnChangedHandler(name, element.props.onChanged);
+        newProps.onChange = this.getFieldOnChangeHandler(name, element.props.onChange);
         newProps.onChanging = this.getFieldOnChangingHandler(name, element.props.onChanging);
         newProps.onSubmit = this.getFieldOnSubmitHandler(element.props.onSubmit);
 

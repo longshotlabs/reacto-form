@@ -128,30 +128,30 @@ test('path form value is updated after user enters input', () => {
   expect(wrapper.instance().getValue()).toEqual({ foo: [{ a: 'NEW' }] });
 });
 
-test('changing input triggers form onChanging and onChanged', () => {
-  const onChanged = jest.fn();
+test('changing input triggers form onChanging and onChange', () => {
+  const onChange = jest.fn();
   const onChanging = jest.fn();
 
   const wrapper = mount(
-    <Form onChanged={onChanged} onChanging={onChanging}>
+    <Form onChange={onChange} onChanging={onChanging}>
       <Input name="foo" />
     </Form>,
   );
 
-  expect(onChanged).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChanging).toHaveBeenCalledTimes(1);
 
-  expect(onChanged.mock.calls[0][0]).toEqual({ foo: null });
+  expect(onChange.mock.calls[0][0]).toEqual({ foo: null });
   expect(onChanging.mock.calls[0][0]).toEqual({ foo: null });
 
-  onChanged.mockClear();
+  onChange.mockClear();
   onChanging.mockClear();
 
   wrapper.find('input').simulate('change', { target: { value: 'NEW' } });
 
-  expect(onChanged).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChanging).toHaveBeenCalledTimes(1);
 
-  expect(onChanged.mock.calls[0][0]).toEqual({ foo: 'NEW' });
+  expect(onChange.mock.calls[0][0]).toEqual({ foo: 'NEW' });
   expect(onChanging.mock.calls[0][0]).toEqual({ foo: 'NEW' });
 });

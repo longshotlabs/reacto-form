@@ -25,7 +25,7 @@ class SelectInput extends Component {
     emptyLabel: '(Select One)',
     isReadOnly: false,
     name: undefined,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     options: [],
     placeholder: undefined,
@@ -97,11 +97,11 @@ class SelectInput extends Component {
   }
 
   handleChanged(value) {
-    const { onChanged, onChanging } = this.props;
+    const { onChange, onChanging } = this.props;
     if (value !== this.lastValue) {
       this.lastValue = value;
       onChanging(value);
-      onChanged(value);
+      onChange(value);
     }
   }
 

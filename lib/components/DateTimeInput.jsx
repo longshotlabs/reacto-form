@@ -62,7 +62,7 @@ class DateTimeInput extends Component {
     monthSelectClassName: undefined,
     monthSelectStyle: {},
     name: undefined,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     placeholder: undefined,
     style: {},
@@ -152,7 +152,7 @@ class DateTimeInput extends Component {
   }
 
   handleChange(stateChanges, isChanged) {
-    const { moment, timezone, onChanging, onChanged } = this.props;
+    const { moment, timezone, onChanging, onChange } = this.props;
     if (!isEmpty(stateChanges)) this.setState(stateChanges);
     const date = getDateFromDateTimeValues({
       ...this.state,
@@ -164,7 +164,7 @@ class DateTimeInput extends Component {
     }
     if (isChanged && !isEqual(date, this.lastChangedValue)) {
       this.lastChangedValue = date;
-      onChanged(date);
+      onChange(date);
     }
   }
 

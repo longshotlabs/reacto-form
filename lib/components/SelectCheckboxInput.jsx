@@ -39,7 +39,7 @@ class SelectCheckboxInput extends Component {
     emptyLabel: '(Select One)',
     isReadOnly: false,
     name: undefined,
-    onChanged() {},
+    onChange() {},
     onChanging() {},
     options: [],
     placeholder: undefined,
@@ -99,11 +99,11 @@ class SelectCheckboxInput extends Component {
   }
 
   handleChanged(value) {
-    const { onChanged, onChanging } = this.props;
+    const { onChange, onChanging } = this.props;
     if (!isEqual(value, this.lastValue)) {
       this.lastValue = value;
       onChanging(value);
-      onChanged(value);
+      onChange(value);
     }
   }
 
