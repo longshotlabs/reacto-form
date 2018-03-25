@@ -128,9 +128,9 @@ test('path form value is updated after user enters input', () => {
   expect(wrapper.instance().getValue()).toEqual({ foo: [{ a: 'NEW' }] });
 });
 
-test('changing input triggers form onChanging and onChange', () => {
-  const onChange = jest.fn();
-  const onChanging = jest.fn();
+test('blurring input triggers form onChanging and onChange', () => {
+  const onChange = jest.fn().mockName('onChange');
+  const onChanging = jest.fn().mockName('onChanging');
 
   const wrapper = mount(
     <Form onChange={onChange} onChanging={onChanging}>
@@ -147,7 +147,7 @@ test('changing input triggers form onChanging and onChange', () => {
   onChange.mockClear();
   onChanging.mockClear();
 
-  wrapper.find('input').simulate('change', { target: { value: 'NEW' } });
+  wrapper.find('input').simulate('blur', { target: { value: 'NEW' } });
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChanging).toHaveBeenCalledTimes(1);

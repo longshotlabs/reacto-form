@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import customPropTypes from '../shared/propTypes';
+const stringDefaultEquals = (value1, value2) => ((value1 || '') === (value2 || ''));
 
 class Input extends Component {
   static isFormInput = true;
 
   static propTypes = {
-    ...customPropTypes.inputs,
     allowLineBreaks: PropTypes.bool,
     className: PropTypes.string,
     convertEmptyStringToNull: PropTypes.bool,
+    isReadOnly: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     maxLength: PropTypes.number,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    onChanging: PropTypes.func,
     onSubmit: PropTypes.func,
     placeholder: PropTypes.string,
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -56,8 +59,11 @@ class Input extends Component {
   constructor(props) {
     super(props);
 
+    const value = props.value || '';
+
     this.state = {
-      value: props.value || '',
+      initialValue: value,
+      value,
     };
   }
 
@@ -69,11 +75,31 @@ class Input extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
+    const { value: stateValue } = this.state;
     const { value: nextValue } = nextProps;
 
-    // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
-    if (value !== nextValue) {
-      this.setValue(nextValue);
+    // Whenever a changed value prop comes in, and doesn't match our state,
+    // and therefore was from outside this input, we reset state to that, thus becoming clean.
+    if (!stringDefaultEquals(value, nextValue) && !stringDefaultEquals(stateValue, nextValue)) {
+      this.setValue(nextValue, true);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.state;
+    const { value: prevValue } = prevState;
+
+    if (!stringDefaultEquals(value, prevValue)) {
+      this.handleChanging(value);
+    }
+
+    // We do not worry about whether value has changed when calling handleChanged
+    // because it will do its own check against a different value. In fact, often
+    // value will not differ from prevValue here because `value` tracks "changing"
+    // rather than "changed".
+    if (this.shouldCallChanged) {
+      this.shouldCallChanged = false;
+      this.handleChanged(value);
     }
   }
 
@@ -83,25 +109,29 @@ class Input extends Component {
   };
 
   onBlur = (event) => {
-    this.setValue(event.target.value);
+    this.setValue(event.target.value, false);
   };
 
   onChange = (event) => {
     let { value } = event.target;
     value = value || '';
     this.setState({ value });
-    this.handleChanging(value);
   };
 
   getValue() {
     return this.cleanValue(this.state.value);
   }
 
-  setValue(value) {
+  setValue(value, shouldSetInitialValue) {
     value = value || '';
+
+    this.shouldCallChanged = true;
+
     this.setState({ value });
-    this.handleChanging(value);
-    this.handleChanged(value);
+
+    if (shouldSetInitialValue) {
+      this.setState({ initialValue: value });
+    }
   }
 
   cleanValue(value) {
@@ -112,7 +142,7 @@ class Input extends Component {
   }
 
   resetValue() {
-    this.setValue(this.props.value);
+    this.setValue(this.props.value, true);
   }
 
   handleChanged(value) {
@@ -136,7 +166,8 @@ class Input extends Component {
   // Input is dirty if value prop doesn't match value state. Whenever a changed
   // value prop comes in, we reset state to that, thus becoming clean.
   isDirty() {
-    return this.state.value !== this.props.value;
+    const { initialValue, value } = this.state;
+    return !stringDefaultEquals(value, initialValue);
   }
 
   render() {

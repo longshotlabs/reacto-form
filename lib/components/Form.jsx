@@ -23,15 +23,17 @@ class Form extends Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     errors: customPropTypes.errors,
+    hasBeenValidated: PropTypes.bool,
     logErrorsOnSubmit: PropTypes.bool,
     // Top-level forms and those under FormList do not need a name
     name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
     onChange: PropTypes.func,
     onChanging: PropTypes.func,
     onSubmit: PropTypes.func,
+    revalidateOn: PropTypes.oneOf(['changing', 'changed', 'submit']),
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    shouldSubmitWhenInvalid: PropTypes.bool,
     validateOn: PropTypes.oneOf(['changing', 'changed', 'submit']),
-    validateOnWhenInvalid: PropTypes.oneOf(['changing', 'changed', 'submit']),
     validator: PropTypes.func,
     value: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
@@ -39,14 +41,16 @@ class Form extends Component {
   static defaultProps = {
     className: null,
     errors: undefined,
+    hasBeenValidated: false,
     logErrorsOnSubmit: false,
     name: null,
     onChange() {},
     onChanging() {},
     onSubmit() {},
+    revalidateOn: 'changing',
     style: {},
+    shouldSubmitWhenInvalid: false,
     validateOn: 'submit',
-    validateOnWhenInvalid: 'changing',
     validator: undefined,
     value: undefined,
   };
@@ -56,20 +60,34 @@ class Form extends Component {
 
     this.state = {
       errors: [],
+      hasBeenValidated: false,
       value: cloneValue(props.value),
     };
 
     this.elementRefs = [];
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { value } = this.props;
-    const { value: nextValue } = nextProps;
+    const { hasBeenValidated, value } = this.props;
+    const { hasBeenValidated: hasBeenValidatedNext, value: nextValue } = nextProps;
 
     // Whenever a changed value prop comes in, we reset state to that, thus becoming clean.
     if (!isEqual(value, nextValue)) {
       this.setState({ errors: [], value: cloneValue(nextValue) });
     }
+
+    // Let props override the `hasBeenValidated` state
+    if (typeof hasBeenValidatedNext === 'boolean' && hasBeenValidatedNext !== hasBeenValidated) {
+      this.setState({ hasBeenValidated: hasBeenValidatedNext });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getFieldOnSubmitHandler(fieldHandler) {
@@ -83,21 +101,21 @@ class Form extends Component {
     return (value) => {
       if (fieldHandler) fieldHandler(value);
 
-      const { validateOn, validateOnWhenInvalid } = this.props;
-      const { errors } = this.state;
+      const { validateOn, revalidateOn } = this.props;
+      const { errors, hasBeenValidated } = this.state;
 
       this.doSet(this.state.value, fieldName, value);
 
-      const fieldIsCurrentlyInvalid = filterErrorsForNames(errors, [fieldName], false).length > 0;
       if (
         validateOn === 'changed' ||
         validateOn === 'changing' ||
         (
-          fieldIsCurrentlyInvalid &&
-          (validateOnWhenInvalid === 'changed' || validateOnWhenInvalid === 'changing')
+          hasBeenValidated &&
+          (revalidateOn === 'changed' || revalidateOn === 'changing')
         )
       ) {
         this.validate().then((updatedErrors) => {
+          if (!this._isMounted) return null;
           this.props.onChange(this.state.value, updatedErrors.length === 0);
         });
       } else {
@@ -110,17 +128,17 @@ class Form extends Component {
     return (value) => {
       if (fieldHandler) fieldHandler(value);
 
-      const { validateOn, validateOnWhenInvalid } = this.props;
-      const { errors } = this.state;
+      const { validateOn, revalidateOn } = this.props;
+      const { errors, hasBeenValidated } = this.state;
 
       this.doSet(this.state.value, fieldName, value);
 
-      const fieldIsCurrentlyInvalid = filterErrorsForNames(errors, [fieldName], false).length > 0;
       if (
         validateOn === 'changing' ||
-        (fieldIsCurrentlyInvalid && validateOnWhenInvalid === 'changing')
+        (hasBeenValidated && revalidateOn === 'changing')
       ) {
         this.validate().then((updatedErrors) => {
+          if (!this._isMounted) return null;
           this.props.onChanging(this.state.value, updatedErrors.length === 0);
         });
       } else {
@@ -151,7 +169,11 @@ class Form extends Component {
   }
 
   resetValue() {
-    this.setState({ errors: [], value: cloneValue(this.props.value) }, () => {
+    this.setState({
+      errors: [],
+      hasBeenValidated: false,
+      value: cloneValue(this.props.value),
+    }, () => {
       this.elementRefs.forEach((element) => {
         if (element && typeof element.resetValue === 'function') element.resetValue();
       });
@@ -159,12 +181,15 @@ class Form extends Component {
   }
 
   submit() {
-    const { logErrorsOnSubmit, onSubmit } = this.props;
+    const { logErrorsOnSubmit, onSubmit, shouldSubmitWhenInvalid } = this.props;
     const { value } = this.state;
     this.validate()
       .then((errors) => {
         if (!Array.isArray(errors)) throw new Error('Resolved with non-array');
         if (logErrorsOnSubmit && errors.length > 0) console.error(errors);
+
+        if (!this._isMounted) return null;
+        if (errors.length && !shouldSubmitWhenInvalid) return null;
 
         return Promise.resolve()
           .then(() => {
@@ -172,15 +197,29 @@ class Form extends Component {
             // for submission to complete, but we won't worry about it if it doesn't
             return onSubmit(value, errors.length === 0);
           })
-          .then(() => {
-            this.resetValue();
+          .then(({ ok = true, errors: submissionErrors } = {}) => {
+            if (!this._isMounted) return null;
+            // Submission result must be an object with `ok` bool prop
+            // and optional submission errors
+            if (ok) {
+              this.resetValue();
+              return;
+            }
+
+            if (submissionErrors) {
+              if (Array.isArray(submissionErrors)) {
+                this.setState({ errors: submissionErrors });
+              } else {
+                console.error('onSubmit returned a value that is not an errors array');
+              }
+            }
           })
           .catch((error) => {
-            console.warn('Form "onSubmit" function error:', error);
+            if (error) console.error('Form "onSubmit" function error:', error);
           });
       })
       .catch((error) => {
-        console.warn('Form "validate" function error:', error);
+        if (error) console.error('Form "validate" function error:', error);
       });
   }
 
@@ -193,9 +232,10 @@ class Form extends Component {
     return validator(value).then((errors) => {
       if (!Array.isArray(errors)) {
         console.error('validator function must return a Promise that resolves with an array');
-        return;
+        return null;
       }
-      this.setState({ errors });
+      if (!this._isMounted) return null;
+      this.setState({ errors, hasBeenValidated: true });
       return errors;
     });
   }
@@ -206,7 +246,7 @@ class Form extends Component {
 
     const { children } = this.props;
     let { errors: propErrors } = this.props;
-    const { errors: stateErrors } = this.state;
+    const { errors: stateErrors, hasBeenValidated } = this.state;
     if (!Array.isArray(propErrors)) propErrors = [];
     const errors = propErrors.concat(stateErrors);
 
@@ -252,6 +292,8 @@ class Form extends Component {
             });
           }
         }
+
+        newProps.hasBeenValidated = hasBeenValidated;
 
         if (element.type.isFormInput) {
           if (typeof element.props.isReadOnly === 'function') {
