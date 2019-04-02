@@ -2,13 +2,10 @@
 
 exports[`renders 1`] = `
 <input
-  className={undefined}
-  maxLength={undefined}
   name="test"
   onBlur={[Function]}
   onChange={[Function]}
   onKeyPress={[Function]}
-  placeholder={undefined}
   readOnly={false}
   style={Object {}}
   type="text"
@@ -18,12 +15,9 @@ exports[`renders 1`] = `
 
 exports[`renders textarea 1`] = `
 <textarea
-  className={undefined}
-  maxLength={undefined}
   name="test"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder={undefined}
   readOnly={false}
   style={Object {}}
   value=""

@@ -2,18 +2,15 @@
 
 exports[`renders all error messages 1`] = `
 <div
-  className={undefined}
   style={Object {}}
 >
   <div
-    className={undefined}
     data-name="a"
     style={Object {}}
   >
     Message One
   </div>
   <div
-    className={undefined}
     data-name="b"
     style={Object {}}
   >

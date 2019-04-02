@@ -10,8 +10,6 @@ exports[`form snapshot 1 1`] = `
     style={Object {}}
   >
     <label
-      className={undefined}
-      htmlFor={undefined}
       style={Object {}}
     >
       LABEL
@@ -20,13 +18,10 @@ exports[`form snapshot 1 1`] = `
       Text above
     </p>
     <input
-      className={undefined}
-      maxLength={undefined}
       name="foo.bar"
       onBlur={[Function]}
       onChange={[Function]}
       onKeyPress={[Function]}
-      placeholder={undefined}
       readOnly={false}
       style={Object {}}
       type="text"
@@ -49,8 +44,6 @@ exports[`form snapshot 2 - complex nesting 1`] = `
     style={Object {}}
   >
     <label
-      className={undefined}
-      htmlFor={undefined}
       style={Object {}}
     >
       TYPE LABEL
@@ -59,13 +52,10 @@ exports[`form snapshot 2 - complex nesting 1`] = `
       Text above
     </p>
     <input
-      className={undefined}
-      maxLength={undefined}
       name="type"
       onBlur={[Function]}
       onChange={[Function]}
       onKeyPress={[Function]}
-      placeholder={undefined}
       readOnly={false}
       style={Object {}}
       type="text"
@@ -90,8 +80,6 @@ exports[`form snapshot 2 - complex nesting 1`] = `
         style={Object {}}
       >
         <label
-          className={undefined}
-          htmlFor={undefined}
           style={Object {}}
         >
           FOOBAR LABEL
@@ -100,13 +88,10 @@ exports[`form snapshot 2 - complex nesting 1`] = `
           Text above
         </p>
         <input
-          className={undefined}
-          maxLength={undefined}
           name="bar"
           onBlur={[Function]}
           onChange={[Function]}
           onKeyPress={[Function]}
-          placeholder={undefined}
           readOnly={false}
           style={Object {}}
           type="text"
@@ -121,8 +106,6 @@ exports[`form snapshot 2 - complex nesting 1`] = `
         style={Object {}}
       >
         <label
-          className={undefined}
-          htmlFor={undefined}
           style={Object {}}
         >
           BIP LABEL
@@ -131,13 +114,10 @@ exports[`form snapshot 2 - complex nesting 1`] = `
           Text above
         </p>
         <input
-          className={undefined}
-          maxLength={undefined}
           name="bip"
           onBlur={[Function]}
           onChange={[Function]}
           onKeyPress={[Function]}
-          placeholder={undefined}
           readOnly={false}
           style={Object {}}
           type="text"

@@ -2,22 +2,18 @@
 
 exports[`renders 1`] = `
 <div
-  className={undefined}
   style={Object {}}
 >
   <div
-    className={undefined}
     style={Object {}}
   >
     <label
-      className={undefined}
-      htmlFor="SelectCheckboxInput_73"
+      htmlFor="SelectCheckboxInput_22"
       style={Object {}}
     >
       <input
         checked={false}
-        className={undefined}
-        id="SelectCheckboxInput_73"
+        id="SelectCheckboxInput_22"
         onChange={[Function]}
         readOnly={false}
         style={Object {}}
@@ -28,18 +24,15 @@ exports[`renders 1`] = `
     </label>
   </div>
   <div
-    className={undefined}
     style={Object {}}
   >
     <label
-      className={undefined}
-      htmlFor="SelectCheckboxInput_74"
+      htmlFor="SelectCheckboxInput_23"
       style={Object {}}
     >
       <input
         checked={false}
-        className={undefined}
-        id="SelectCheckboxInput_74"
+        id="SelectCheckboxInput_23"
         onChange={[Function]}
         readOnly={false}
         style={Object {}}
@@ -50,18 +43,15 @@ exports[`renders 1`] = `
     </label>
   </div>
   <div
-    className={undefined}
     style={Object {}}
   >
     <label
-      className={undefined}
-      htmlFor="SelectCheckboxInput_75"
+      htmlFor="SelectCheckboxInput_24"
       style={Object {}}
     >
       <input
         checked={false}
-        className={undefined}
-        id="SelectCheckboxInput_75"
+        id="SelectCheckboxInput_24"
         onChange={[Function]}
         readOnly={false}
         style={Object {}}

@@ -2,11 +2,9 @@
 
 exports[`renders 1`] = `
 <div
-  className={undefined}
   style={Object {}}
 >
   <select
-    className={undefined}
     onChange={[Function]}
     readOnly={false}
     style={
@@ -87,7 +85,6 @@ exports[`renders 1`] = `
     </option>
   </select>
   <input
-    className={undefined}
     onBlur={[Function]}
     onChange={[Function]}
     placeholder="DD"
@@ -104,7 +101,6 @@ exports[`renders 1`] = `
     value=""
   />
   <input
-    className={undefined}
     onBlur={[Function]}
     onChange={[Function]}
     placeholder="YYYY"
@@ -121,7 +117,6 @@ exports[`renders 1`] = `
     value=""
   />
   <input
-    className={undefined}
     onBlur={[Function]}
     onChange={[Function]}
     placeholder="HH:MM"

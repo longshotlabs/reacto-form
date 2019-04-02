@@ -2,7 +2,6 @@
 
 exports[`renders 1`] = `
 <select
-  className={undefined}
   name="test"
   onChange={[Function]}
   readOnly={false}

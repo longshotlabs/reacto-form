@@ -6,8 +6,6 @@ exports[`renders with label 1`] = `
   style={Object {}}
 >
   <label
-    className={undefined}
-    htmlFor={undefined}
     style={Object {}}
   >
     Foo
@@ -16,13 +14,10 @@ exports[`renders with label 1`] = `
     Text above
   </p>
   <input
-    className={undefined}
-    maxLength={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
     onKeyPress={[Function]}
-    placeholder={undefined}
     readOnly={false}
     style={Object {}}
     type="text"
@@ -43,13 +38,10 @@ exports[`renders with no label 1`] = `
     Text above
   </p>
   <input
-    className={undefined}
-    maxLength={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
     onKeyPress={[Function]}
-    placeholder={undefined}
     readOnly={false}
     style={Object {}}
     type="text"
