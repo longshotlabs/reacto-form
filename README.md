@@ -1,3 +1,3 @@
 # reacto-form
 
-[Documentation](http://forms.dairystatedesigns.com/reacto-form/)
+[Documentation](http://composableforms.com/reacto-form/)
