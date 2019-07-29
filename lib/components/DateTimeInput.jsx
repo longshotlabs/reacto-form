@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash.isempty';
-import isEqual from 'lodash.isequal';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 import customPropTypes from '../shared/propTypes';
 import getDateTimeValuesFromDate from '../shared/getDateTimeValuesFromDate';
@@ -54,6 +54,7 @@ class DateTimeInput extends Component {
     yearInputStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
+  /* eslint-disable react/default-props-match-prop-types */
   static defaultProps = {
     className: undefined,
     dayInputClassName: undefined,
@@ -152,8 +153,15 @@ class DateTimeInput extends Component {
   }
 
   handleChange(stateChanges, isChanged) {
-    const { moment, timezone, onChanging, onChange } = this.props;
+    const {
+      moment,
+      timezone,
+      onChanging,
+      onChange,
+    } = this.props;
+
     if (!isEmpty(stateChanges)) this.setState(stateChanges);
+
     const date = getDateFromDateTimeValues({
       ...this.state,
       ...stateChanges,
@@ -189,7 +197,13 @@ class DateTimeInput extends Component {
       yearInputClassName,
       yearInputStyle,
     } = this.props;
-    const { dayValue, monthValue, timeValue, yearValue } = this.state;
+
+    const {
+      dayValue,
+      monthValue,
+      timeValue,
+      yearValue,
+    } = this.state;
 
     return (
       <div className={className} style={style}>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
-import get from 'lodash.get';
-import set from 'lodash.set';
-import unset from 'lodash.unset';
+import isEqual from 'lodash/isEqual';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import unset from 'lodash/unset';
 import clone from 'clone';
 
 import bracketsToDots from '../shared/bracketsToDots';
@@ -107,11 +107,11 @@ class Form extends Component {
       this.doSet(this.state.value, fieldName, value);
 
       if (
-        validateOn === 'changed' ||
-        validateOn === 'changing' ||
-        (
-          hasBeenValidated &&
-          (revalidateOn === 'changed' || revalidateOn === 'changing')
+        validateOn === 'changed'
+        || validateOn === 'changing'
+        || (
+          hasBeenValidated
+          && (revalidateOn === 'changed' || revalidateOn === 'changing')
         )
       ) {
         this.validate().then((updatedErrors) => {
@@ -134,8 +134,8 @@ class Form extends Component {
       this.doSet(this.state.value, fieldName, value);
 
       if (
-        validateOn === 'changing' ||
-        (hasBeenValidated && revalidateOn === 'changing')
+        validateOn === 'changing'
+        || (hasBeenValidated && revalidateOn === 'changing')
       ) {
         this.validate().then((updatedErrors) => {
           if (!this._isMounted) return null;

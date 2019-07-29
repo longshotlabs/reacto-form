@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 
 import customPropTypes from '../shared/propTypes';
 
@@ -20,6 +20,7 @@ class SelectInput extends Component {
     ]),
   };
 
+  /* eslint-disable react/default-props-match-prop-types */
   static defaultProps = {
     className: undefined,
     emptyLabel: '(Select One)',
@@ -151,7 +152,13 @@ class SelectInput extends Component {
   }
 
   render() {
-    const { className, isReadOnly, name, style } = this.props;
+    const {
+      className,
+      isReadOnly,
+      name,
+      style,
+    } = this.props;
+
     const { value } = this.state;
 
     return (

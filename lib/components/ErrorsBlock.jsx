@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash/isEmpty';
 
 import customPropTypes from '../shared/propTypes';
 
@@ -26,7 +26,13 @@ class ErrorsBlock extends Component {
   };
 
   render() {
-    const { errorClassName, errorStyle, errors, className, style } = this.props;
+    const {
+      errorClassName,
+      errorStyle,
+      errors,
+      className,
+      style,
+    } = this.props;
 
     if (isEmpty(errors)) return null;
 

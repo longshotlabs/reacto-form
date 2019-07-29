@@ -26,6 +26,7 @@
   ],
   "eslintConfig": {
     "extends": "airbnb",
+    "parser": "babel-eslint",
     "env": {
       "browser": true,
       "jest": true
@@ -44,6 +45,7 @@
       "no-console": 0,
       "space-before-function-paren": 0,
       "react/prefer-stateless-function": 0,
+      "react/destructuring-assignment": 0,
       "react/no-multi-comp": 0,
       "jsx-a11y/href-no-hash": "off",
       "jsx-a11y/anchor-is-valid": [
@@ -70,20 +72,13 @@
     "test": "jest"
   },
   "peerDependencies": {
-    "react": ">=15"
+    "react": ">=16.8"
   },
   "dependencies": {
+    "babel-eslint": "^10.0.2",
     "clone": "^2.1.2",
-    "lodash.get": "4.4.2",
-    "lodash.isempty": "4.4.0",
-    "lodash.isequal": "4.5.0",
-    "lodash.set": "4.3.2",
-    "lodash.topath": "^4.5.2",
-    "lodash.union": "^4.6.0",
-    "lodash.uniqueid": "4.0.1",
-    "lodash.unset": "4.5.2",
-    "lodash.without": "^4.4.0",
-    "prop-types": "^15.6.1"
+    "lodash": "^4.17.15",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

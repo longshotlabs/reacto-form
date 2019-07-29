@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
-import union from 'lodash.union';
-import uniqueId from 'lodash.uniqueid';
-import without from 'lodash.without';
+import isEqual from 'lodash/isEqual';
+import union from 'lodash/union';
+import uniqueId from 'lodash/uniqueId';
+import without from 'lodash/without';
 
 import customPropTypes from '../shared/propTypes';
 
@@ -28,6 +28,7 @@ class SelectCheckboxInput extends Component {
     ])),
   };
 
+  /* eslint-disable react/default-props-match-prop-types */
   static defaultProps = {
     className: undefined,
     checkboxClassName: undefined,
@@ -130,7 +131,17 @@ class SelectCheckboxInput extends Component {
   }
 
   renderOptions() {
-    const { checkboxClassName, checkboxStyle, isReadOnly, itemClassName, itemStyle, labelClassName, labelStyle, options } = this.props;
+    const {
+      checkboxClassName,
+      checkboxStyle,
+      isReadOnly,
+      itemClassName,
+      itemStyle,
+      labelClassName,
+      labelStyle,
+      options,
+    } = this.props;
+
     const { value } = this.state;
 
     return (options || []).map((option) => {

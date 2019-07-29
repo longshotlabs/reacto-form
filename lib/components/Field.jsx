@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash/isEmpty';
 
 import customPropTypes from '../shared/propTypes';
 
@@ -38,11 +38,18 @@ class Field extends Component {
   }
 
   renderLabel() {
-    const { label, labelClassName, labelFor, labelStyle } = this.props;
+    const {
+      label,
+      labelClassName,
+      labelFor,
+      labelStyle,
+    } = this.props;
 
+    /* eslint-disable jsx-a11y/label-has-for */
     return (
       <label className={labelClassName} htmlFor={labelFor} style={labelStyle}>{label}</label>
     );
+    /* eslint-enable jsx-a11y/label-has-for */
   }
 
   render() {

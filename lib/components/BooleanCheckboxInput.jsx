@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash.uniqueid';
+import uniqueId from 'lodash/uniqueId';
 
 import customPropTypes from '../shared/propTypes';
 
@@ -15,6 +15,7 @@ class BooleanCheckboxInput extends Component {
     style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
+  /* eslint-disable react/default-props-match-prop-types */
   static defaultProps = {
     className: undefined,
     isReadOnly: false,
@@ -81,19 +82,27 @@ class BooleanCheckboxInput extends Component {
   }
 
   render() {
-    const { className, isReadOnly, label, style } = this.props;
+    const {
+      className,
+      isReadOnly,
+      label,
+      style,
+    } = this.props;
     const { id, value } = this.state;
 
     return (
       <div className={className} style={style}>
-        <label htmlFor={id}><input
-          checked={value === true}
-          id={id}
-          onChange={this.onChange}
-          readOnly={isReadOnly}
-          type="checkbox"
-          value="true"
-        /> {label}</label>
+        <label htmlFor={id}>
+          <input
+            checked={value === true}
+            id={id}
+            onChange={this.onChange}
+            readOnly={isReadOnly}
+            type="checkbox"
+            value="true"
+          />
+          {label}
+        </label>
       </div>
     );
   }

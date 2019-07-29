@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 import clone from 'clone';
 
 import bracketsToDots from '../shared/bracketsToDots';
@@ -173,6 +173,28 @@ class FormList extends Component {
     return this.state.value;
   }
 
+  handleClickAddItem = () => {
+    const { value } = this.state;
+    value.push(null);
+    this.setState({ value });
+  };
+
+  handleChanging(value) {
+    const { onChanging } = this.props;
+    if (!isEqual(value, this.lastChangingValue)) {
+      this.lastChangingValue = value;
+      onChanging(value);
+    }
+  }
+
+  handleChanged(value) {
+    const { onChange } = this.props;
+    if (!isEqual(value, this.lastChangedValue)) {
+      this.lastChangedValue = value;
+      onChange(value);
+    }
+  }
+
   resetValue() {
     let { minCount, value } = this.props;
     value = clone(value || []);
@@ -186,28 +208,6 @@ class FormList extends Component {
       if (element && typeof element.resetValue === 'function') element.resetValue();
     });
   }
-
-  handleChanged(value) {
-    const { onChange } = this.props;
-    if (!isEqual(value, this.lastChangedValue)) {
-      this.lastChangedValue = value;
-      onChange(value);
-    }
-  }
-
-  handleChanging(value) {
-    const { onChanging } = this.props;
-    if (!isEqual(value, this.lastChangingValue)) {
-      this.lastChangingValue = value;
-      onChanging(value);
-    }
-  }
-
-  handleClickAddItem = () => {
-    const { value } = this.state;
-    value.push(null);
-    this.setState({ value });
-  };
 
   handleClickRemoveItem(index) {
     return () => {
@@ -224,7 +224,23 @@ class FormList extends Component {
   }
 
   renderArrayItems() {
-    const { buttonClassName, buttonStyle, children, errors, itemAreaClassName, itemAreaStyle, itemClassName, itemStyle, itemRemoveAreaClassName, itemRemoveAreaStyle, minCount, name, onSubmit, removeButtonText } = this.props;
+    const {
+      buttonClassName,
+      buttonStyle,
+      children,
+      errors,
+      itemAreaClassName,
+      itemAreaStyle,
+      itemClassName,
+      itemStyle,
+      itemRemoveAreaClassName,
+      itemRemoveAreaStyle,
+      minCount,
+      name,
+      onSubmit,
+      removeButtonText,
+    } = this.props;
+
     const { value } = this.state;
 
     // We'll do these checks just once, outside of the `value.map`, for speed.
@@ -273,12 +289,15 @@ class FormList extends Component {
             ref: (el) => { this.elementRefs.push(el); },
             value: itemValue,
           }, recursivelyCloneElements(child.props.children));
-        } else if (child.type.isFormErrors) {
+        }
+
+        if (child.type.isFormErrors) {
           return React.cloneElement(child, {
             errors: filterErrorsForNames(errors, [itemName], true),
             names: [itemName],
           }, recursivelyCloneElements(child.props.children));
         }
+
         return recursivelyCloneElements(child);
       });
 
@@ -287,9 +306,11 @@ class FormList extends Component {
 
       return (
         <div className={itemClassName} key={itemName} style={resolvedItemStyle}>
-          {hasMoreThanMinCount && <div className={itemRemoveAreaClassName} style={{ ...styles.itemLeft, ...itemRemoveAreaStyle }}>
-            <button type="button" className={buttonClassName} onClick={this.handleClickRemoveItem(index)} style={{ ...styles.button, ...buttonStyle }}>{removeButtonText}</button>
-          </div>}
+          {hasMoreThanMinCount && (
+            <div className={itemRemoveAreaClassName} style={{ ...styles.itemLeft, ...itemRemoveAreaStyle }}>
+              <button type="button" className={buttonClassName} onClick={this.handleClickRemoveItem(index)} style={{ ...styles.button, ...buttonStyle }}>{removeButtonText}</button>
+            </div>
+          )}
           <div className={itemAreaClassName} style={{ ...styles.itemRight, ...itemAreaStyle }}>
             {kids}
           </div>
@@ -299,10 +320,18 @@ class FormList extends Component {
   }
 
   renderAddItemButton() {
-    const { addButtonText, addItemRowStyle, buttonClassName, itemClassName } = this.props;
+    const {
+      addButtonText,
+      addItemRowStyle,
+      buttonClassName,
+      itemClassName,
+    } = this.props;
+
     const { value } = this.state;
+
     let resolvedStyle = value.length === 0 ? {} : styles.addItemRow;
     resolvedStyle = { ...resolvedStyle, ...addItemRowStyle };
+
     return (
       <div className={itemClassName} style={resolvedStyle}>
         <button type="button" className={buttonClassName} onClick={this.handleClickAddItem} style={styles.button}>{addButtonText}</button>
