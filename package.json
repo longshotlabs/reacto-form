@@ -64,9 +64,13 @@
       "<rootDir>/jestSetup.js"
     ]
   },
-  "main": "./dist/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/index.js",
   "scripts": {
-    "build": "rm -rf dist/** && babel lib --out-dir dist --ignore *.test.js,__snapshots__",
+    "prebuild": "rm -rf dist/**",
+    "build": "npm run build:modules && npm run build:common",
+    "build:common": "BABEL_ENV=production babel lib --out-dir dist/cjs",
+    "build:modules": "BABEL_ENV=production BABEL_MODULES=1 babel lib --out-dir dist",
     "lint": "eslint .",
     "prepare": "npm run lint && npm test && npm run build",
     "test": "jest"
@@ -75,31 +79,33 @@
     "react": ">=16.8"
   },
   "dependencies": {
-    "babel-eslint": "^10.0.2",
+    "@babel/runtime": "^7.5.5",
     "clone": "^2.1.2",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/polyfill": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
     "composable-form-tests": "^1.0.0",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
+    "core-js": "^3.1.4",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "jest": "^24.6.0",
-    "moment-timezone": "^0.5.14",
-    "raf": "^3.4.0",
+    "jest": "^24.8.0",
+    "raf": "^3.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-test-renderer": "^16.8.6"
+    "react-test-renderer": "^16.8.6",
+    "reacto-form-inputs": "^1.1.0"
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { Input } from 'reacto-form-inputs';
 import Form from './Form';
 import FormList from './FormList';
-import Input from './Input';
 
 test('has isFormList property set to true', () => {
   expect(FormList.isFormList).toBe(true);

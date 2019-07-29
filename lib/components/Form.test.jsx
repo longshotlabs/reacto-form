@@ -1,9 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import Field from './Field';
+import { Field, Input } from 'reacto-form-inputs';
 import Form from './Form';
-import Input from './Input';
 
 test('has isForm property set to true', () => {
   expect(Form.isForm).toBe(true);
