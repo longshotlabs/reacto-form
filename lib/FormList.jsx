@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import clone from 'clone';
 
-import bracketsToDots from '../shared/bracketsToDots';
-import customPropTypes from '../shared/propTypes';
-import filterErrorsForNames from '../shared/filterErrorsForNames';
-import recursivelyCloneElements from '../shared/recursivelyCloneElements';
+import bracketsToDots from './shared/bracketsToDots';
+import customPropTypes from './shared/propTypes';
+import filterErrorsForNames from './shared/filterErrorsForNames';
+import recursivelyCloneElements from './shared/recursivelyCloneElements';
 
 const styles = {
   button: {

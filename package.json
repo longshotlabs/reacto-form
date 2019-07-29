@@ -14,7 +14,8 @@
   "homepage": "https://github.com/DairyStateDesigns/reacto-form",
   "files": [
     "CHANGELOG.md",
-    "dist",
+    "cjs",
+    "esm",
     "LICENSE",
     "README.md"
   ],
@@ -64,13 +65,12 @@
       "<rootDir>/jestSetup.js"
     ]
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/index.js",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
   "scripts": {
-    "prebuild": "rm -rf dist/**",
     "build": "npm run build:modules && npm run build:common",
-    "build:common": "BABEL_ENV=production babel lib --out-dir dist/cjs",
-    "build:modules": "BABEL_ENV=production BABEL_MODULES=1 babel lib --out-dir dist",
+    "build:common": "rm -rf cjs/** && BABEL_ENV=production babel lib --out-dir cjs",
+    "build:modules": "rm -rf esm/** && BABEL_ENV=production BABEL_MODULES=1 babel lib --out-dir esm",
     "lint": "eslint .",
     "prepare": "npm run lint && npm test && npm run build",
     "test": "jest"

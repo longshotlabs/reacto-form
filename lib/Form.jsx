@@ -6,10 +6,10 @@ import set from 'lodash/set';
 import unset from 'lodash/unset';
 import clone from 'clone';
 
-import bracketsToDots from '../shared/bracketsToDots';
-import customPropTypes from '../shared/propTypes';
-import filterErrorsForNames from '../shared/filterErrorsForNames';
-import recursivelyCloneElements from '../shared/recursivelyCloneElements';
+import bracketsToDots from './shared/bracketsToDots';
+import customPropTypes from './shared/propTypes';
+import filterErrorsForNames from './shared/filterErrorsForNames';
+import recursivelyCloneElements from './shared/recursivelyCloneElements';
 
 // To ensure we do not mutate objects passed in, we'll do a deep clone.
 function cloneValue(value) {
