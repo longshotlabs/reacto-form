@@ -58,6 +58,8 @@ npm start
 
 ## useReactoForm Hook
 
+_Available since v1.2.0_
+
 The newest and best way to use ReactoForm is with the aptly named `useReactoForm` React hook. Unless your form is in a class component, where React hooks don't work, you should always use this hook. For class components, use the `Form` component described below.
 
 In a nutshell, you call the hook in your component function, passing options, and then use the returned functions to inject the proper form logic into all of your input components as standard props.
