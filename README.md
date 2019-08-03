@@ -159,15 +159,18 @@ Material UI is a great framework, but unfortunately the React input components d
 - `onChange` is called while changing, `onBlur` is called after the change, and `onChanging` is never called and causes a console warning.
 - `isReadOnly` prop is named `readOnly`
 
-Fortunately, the `useReactoForm` `getInputProps` function takes some options which allow us to change the names of the returned props and convert `null` value to some other value:
+Fortunately, the `useReactoForm` `getInputProps` function takes some options which allow us to change the names of the returned props, omit returned props, and convert `null` value to some other value:
 
 ```js
 getInputProps("email", {
-  nullValue: "",
+  nullValue: '',
   propNames: {
-    onChange: "onBlur",
-    onChanging: "onChange",
-    isReadOnly: "readOnly",
+    errors: false,
+    hasBeenValidated: false,
+    isReadOnly: 'readOnly',
+    onChange: 'onBlur',
+    onChanging: 'onChange',
+    onSubmit: false,
   },
 });
 ```
