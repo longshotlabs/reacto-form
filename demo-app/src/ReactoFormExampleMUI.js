@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Form } from "reacto-form";
+import Form from "reacto-form/esm/Form";
+import muiOptions from "reacto-form/esm/muiOptions";
 import validator from "./formValidator";
 
 TextField.isFormInput = true;
@@ -31,10 +32,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-async function mySubmissionFunction(...args) {
-  console.log("Submit", ...args);
-}
-
 export default function ReactoFormExample() {
   const classes = useStyles();
   const formRef = useRef(null);
@@ -42,20 +39,27 @@ export default function ReactoFormExample() {
   return (
     <div className={classes.root}>
       <Form
+        inputOptions={muiOptions}
         logErrorsOnSubmit
-        onSubmit={mySubmissionFunction}
+        onChange={(formData) => { console.log("onChange", formData); }}
+        onChanging={(formData) => { console.log("onChanging", formData); }}
+        onSubmit={(formData) => { console.log("onSubmit", formData); }}
         ref={formRef}
         validator={validator}
       >
         <TextField
-          name="firstName"
-          label="First name"
+          error={formRef.current && formRef.current.hasErrors(["firstName"])}
           fullWidth
+          helperText={formRef.current && formRef.current.getFirstErrorMessage(["firstName"])}
+          label="First name"
+          name="firstName"
         />
         <TextField
-          name="lastName"
-          label="Last name"
+          error={formRef.current && formRef.current.hasErrors(["lastName"])}
           fullWidth
+          helperText={formRef.current && formRef.current.getFirstErrorMessage(["lastName"])}
+          label="Last name"
+          name="lastName"
         />
         <Button
           className={classes.button}
