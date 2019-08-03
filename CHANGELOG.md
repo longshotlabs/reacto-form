@@ -16,3 +16,8 @@ Introduce React Hook: `useReactoForm`
 
 - The `getInputProps` function returned by `useReactoForm` hook now returns a `hasBeenValidated` boolean prop.
 - `useReactoForm` hook now includes `resetValue` in returned object.
+
+## 1.3.0
+
+- Update `Form` component to work with MUI in a way similar to `useReactoForm`
+- Allow settings keys to `false` in `propNames` to omit those input props
