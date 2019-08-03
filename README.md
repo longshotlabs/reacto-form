@@ -251,6 +251,106 @@ In addition to following the spec, these props are supported:
 
 [Usage](http://composableforms.com/user/form/)
 
+### Using Form with non-compliant inputs (Material UI example)
+
+_Works in 1.3.0+_
+
+Material UI is a great framework, but unfortunately the React input components do not currently match the [Composable Form Input Specification](http://composableforms.com/user/input/) in several ways. For example, the [TextField](https://material-ui.com/api/text-field/) has the following differences:
+
+- It complains when you pass `null` as `value`, and it considers the input to be "uncontrolled" when you pass `undefined` as `value`. Instead, it expects an empty string.
+- `onChange` is called while changing, `onBlur` is called after the change, and `onChanging` is never called and causes a console warning.
+- `isReadOnly` prop is named `readOnly`
+
+Fortunately, the `Form` component takes some options in the `inputOptions` props which allow us to change the names of the returned props, omit returned props, and convert `null` value to some other value:
+
+```js
+const inputOptions = {
+  nullValue: '',
+  propNames: {
+    errors: false,
+    hasBeenValidated: false,
+    isReadOnly: 'readOnly',
+    onChange: 'onBlur',
+    onChanging: 'onChange',
+    onSubmit: false,
+  },
+};
+
+<Form inputOptions={inputOptions}>
+  /* MUI inputs */
+</Form>
+```
+
+To simplify this further, this package exports these options as `muiOptions`:
+
+```js
+import muiOptions from "reacto-form/esm/muiOptions";
+
+<Form inputOptions={muiOptions}>
+  /* MUI inputs */
+</Form>
+```
+
+Here's a full example:
+
+```js
+import React, { useRef } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Form from "reacto-form/esm/Form";
+import muiOptions from "reacto-form/esm/muiOptions";
+import SimpleSchema from "simpl-schema";
+
+const formSchema = new SimpleSchema({
+  firstName: {
+    type: String,
+    min: 4
+  },
+  lastName: {
+    type: String,
+    min: 2
+  }
+});
+
+const onSubmit = (formData) => { console.log("onSubmitForm", formData); }
+const validator = formSchema.getFormValidator();
+
+export default function ReactoFormExampleMUI() {
+  const formRef = useRef(null);
+
+  return (
+    <div>
+      <Form
+        inputOptions={muiOptions}
+        onSubmit={onSubmit}
+        ref={formRef}
+        validator={validator}
+      >
+        <TextField
+          error={formRef.current && formRef.current.hasErrors(["firstName"])}
+          fullWidth
+          helperText={formRef.current && formRef.current.getFirstErrorMessage(["firstName"])}
+          label="First name"
+          name="firstName"
+        />
+        <TextField
+          error={formRef.current && formRef.current.hasErrors(["lastName"])}
+          fullWidth
+          helperText={formRef.current && formRef.current.getFirstErrorMessage(["lastName"])}
+          label="Last name"
+          name="lastName"
+        />
+        <Button
+          onClick={() => formRef.current && formRef.current.submit()}
+        >
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+}
+```
+
 ## FormList Component
 
 Implements the [FormList spec](spec/list.md).
