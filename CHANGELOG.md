@@ -21,3 +21,7 @@ Introduce React Hook: `useReactoForm`
 
 - Update `Form` component to work with MUI in a way similar to `useReactoForm`
 - Allow settings keys to `false` in `propNames` to omit those input props
+
+## 1.4.0
+
+Both `form.submit()` and `form.validate()` now reliably return a Promise that resolves with the updated errors array. This allows you to await form submission and easily check the errors after.
