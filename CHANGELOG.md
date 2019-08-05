@@ -6,7 +6,7 @@ Initial release
 
 ## 1.0.0
 
-Various changes
+Various non-breaking changes
 
 ## 1.1.0
 
