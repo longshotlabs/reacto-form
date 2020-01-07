@@ -1,6 +1,6 @@
 {
   "name": "reacto-form",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A reference implementation of the Composable Form Specification for React (see http://composableforms.com)",
   "author": "Dairy State Designs (http://dairystatedesigns.com/)",
   "license": "MIT",
