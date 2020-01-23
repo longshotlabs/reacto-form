@@ -1,5 +1,9 @@
 # reacto-form CHANGELOG
 
+## 1.4.2
+
+Fix form `value` prop data getting lost after a successful submission.
+
 ## 1.4.1
 
 Upgrade transitive dependencies to fix vulnerabilities
