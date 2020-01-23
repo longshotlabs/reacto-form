@@ -7,9 +7,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.3.0",
-    "reacto-form": "^1.1.0",
+    "reacto-form": "^1.4.2",
     "reacto-form-inputs": "^1.1.0",
-    "simpl-schema": "^1.5.5"
+    "simpl-schema": "^1.5.6"
   },
   "scripts": {
     "start": "react-scripts start",

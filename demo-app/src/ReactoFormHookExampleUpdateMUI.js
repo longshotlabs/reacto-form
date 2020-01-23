@@ -17,11 +17,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-async function mySubmissionFunction(...args) {
-  console.log("Submit", ...args);
-}
+export default function ReactoFormHookExampleUpdateMUI(props) {
+  const {
+    setUpdateFormData,
+    updateFormData
+  } = props;
 
-export default function ReactoFormHookExampleMUI() {
   const classes = useStyles();
 
   const {
@@ -33,8 +34,11 @@ export default function ReactoFormHookExampleMUI() {
     logErrorsOnSubmit: true,
     onChange: (val) => { console.log("onChangeForm", val); },
     onChanging: (val) => { console.log("onChangingForm", val); },
-    onSubmit: mySubmissionFunction,
+    onSubmit(formData) {
+      setUpdateFormData(formData);
+    },
     validator,
+    value: updateFormData,
   });
 
   return (

@@ -53,6 +53,9 @@ export default function ReactoFormExample() {
           helperText={formRef.current && formRef.current.getFirstErrorMessage(["firstName"])}
           label="First name"
           name="firstName"
+          onKeyPress={(event) => {
+            if (event.key === "Enter") formRef.current && formRef.current.submit();
+          }}
         />
         <TextField
           error={formRef.current && formRef.current.hasErrors(["lastName"])}
@@ -60,6 +63,9 @@ export default function ReactoFormExample() {
           helperText={formRef.current && formRef.current.getFirstErrorMessage(["lastName"])}
           label="Last name"
           name="lastName"
+          onKeyPress={(event) => {
+            if (event.key === "Enter") formRef.current && formRef.current.submit();
+          }}
         />
         <Button
           className={classes.button}
