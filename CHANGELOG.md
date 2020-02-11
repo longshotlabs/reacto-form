@@ -1,5 +1,9 @@
 # reacto-form CHANGELOG
 
+## 1.5.0
+
+Add support for MUI `Checkbox` along with examples of it in demo app.
+
 ## 1.4.2
 
 Fix form `value` prop data getting lost after a successful submission.
