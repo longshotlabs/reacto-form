@@ -157,17 +157,19 @@ Material UI is a great framework, but unfortunately the React input components d
 
 - It complains when you pass `null` as `value`, and it considers the input to be "uncontrolled" when you pass `undefined` as `value`. Instead, it expects an empty string.
 - `onChange` is called while changing, `onBlur` is called after the change, and `onChanging` is never called and causes a console warning.
-- `isReadOnly` prop is named `readOnly`
+- `isReadOnly` prop is named `disabled`
 
 Fortunately, the `useReactoForm` `getInputProps` function takes some options which allow us to change the names of the returned props, omit returned props, and convert `null` value to some other value:
 
 ```js
 getInputProps("email", {
   nullValue: '',
+  onChangeGetValue: event => event.target.value,
+  onChangingGetValue: event => event.target.value,
   propNames: {
     errors: false,
     hasBeenValidated: false,
-    isReadOnly: 'readOnly',
+    isReadOnly: 'disabled',
     onChange: 'onBlur',
     onChanging: 'onChange',
     onSubmit: false,
@@ -183,12 +185,24 @@ import muiOptions from "reacto-form/esm/muiOptions";
 getInputProps("email", muiOptions);
 ```
 
+Similarly, you can import `muiCheckboxOptions` for an MUI `Checkbox` component:
+
+```js
+import muiOptions from "reacto-form/esm/muiCheckboxOptions";
+
+getInputProps("isMarried", muiCheckboxOptions);
+```
+
 Here's a full example:
 
 ```js
 import React from "react";
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import TextField from '@material-ui/core/TextField';
+import muiCheckboxOptions from "reacto-form/esm/muiCheckboxOptions";
 import muiOptions from "reacto-form/esm/muiOptions";
 import useReactoForm from "reacto-form/esm/useReactoForm";
 import SimpleSchema from "simpl-schema";
@@ -234,6 +248,15 @@ export default function ReactoFormHookExampleMUI() {
         helperText={getFirstErrorMessage(["lastName"])}
         {...getInputProps("lastName", muiOptions)}
       />
+      <FormGroup row>
+        <FormControlLabel
+          control={
+            <Checkbox color="primary" />
+          }
+          label="Are you married?"
+          {...getInputProps("isMarried", muiCheckboxOptions)}
+        />
+      </FormGroup>
       <Button onClick={submitForm}>Submit</Button>
     </div>
   );
