@@ -1,8 +1,12 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import TextField from '@material-ui/core/TextField';
 import muiOptions from "reacto-form/esm/muiOptions";
+import muiCheckboxOptions from "reacto-form/esm/muiCheckboxOptions";
 import useReactoForm from "reacto-form/esm/useReactoForm";
 import validator from "./formValidator";
 
@@ -35,6 +39,7 @@ export default function ReactoFormHookExampleMUI() {
     onChanging: (val) => { console.log("onChangingForm", val); },
     onSubmit: mySubmissionFunction,
     validator,
+    isReadOnly: true
   });
 
   return (
@@ -59,6 +64,15 @@ export default function ReactoFormHookExampleMUI() {
         }}
         {...getInputProps("lastName", muiOptions)}
       />
+      <FormGroup row>
+        <FormControlLabel
+          control={
+            <Checkbox color="primary" />
+          }
+          label="Are you married?"
+          {...getInputProps("isMarried", muiCheckboxOptions)}
+        />
+      </FormGroup>
       <Button
         className={classes.button}
         color="primary"

@@ -13,7 +13,8 @@ function App() {
   const [currentTab, setCurrentTab] = useState(0);
   const [updateFormData, setUpdateFormData] = useState({
     firstName: "Existing",
-    lastName: "Name"
+    lastName: "Name",
+    isMarried: true
   });
 
   return (
