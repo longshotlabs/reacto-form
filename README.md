@@ -215,6 +215,10 @@ const formSchema = new SimpleSchema({
   lastName: {
     type: String,
     min: 2
+  },
+  isMarried: {
+    type: Boolean,
+    optional: true
   }
 });
 
