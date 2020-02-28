@@ -124,6 +124,7 @@ export default function ReactoFormHookExample() {
 Here's a full list of what you can pass to `useReactoForm`:
 
 - `hasBeenValidated`: Pass a boolean to override the internal tracking of whether the `validator` function has been called since the form was created or reset.
+- `isReadOnly`. Pass a boolean or a function that accepts the current form data object as its only argument and returns a boolean. If `true`, all inputs controlled by the form will be in read-only mode (disabled). ReactoForm also automatically makes all of the inputs read only while the form is being submitted.
 - `logErrorsOnSubmit`: Pass `true` to log all errors in the console when `submitForm` is called, if there are any errors. This can be helpful during initial development and when debugging in case you have forgotten to show any errors in the UI.
 - `onChange`: This function will be called with the new form data object whenever any input changes
 - `onChanging`: This function will be called with the new form data object whenever any input is in the process of changing (for example, while a slider is moving but not yet released, while a finger is moving but not yet lifted, while a user is typing but hasn't yet tabbed to the next field).
