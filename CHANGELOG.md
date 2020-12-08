@@ -1,5 +1,9 @@
 # reacto-form CHANGELOG
 
+## 1.5.1
+
+Update `@babel/runtime` and `lodash` dependencies to their latest versions
+
 ## 1.5.0
 
 Add support for MUI `Checkbox` along with examples of it in demo app.

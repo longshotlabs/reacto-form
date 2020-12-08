@@ -9,7 +9,7 @@ This package exports the following things that help you quickly combine, validat
 
 Additionally, it exports a `FormList` React component that is an example of building a dynamic array from form inputs.
 
-Another package, [reacto-form-inputs](https://github.com/DairyStateDesigns/reacto-form-inputs), provides examples of various types of inputs that conform to the spec. In general they are robust, tested, and production ready, but you may want to copy and modify them to style them to your needs. Alternatively, ReactoForm can be made to work with many popular React UI frameworks, and this is most likely what you want to do with this package.
+Another package, [reacto-form-inputs](https://github.com/longshotlabs/reacto-form-inputs), provides examples of various types of inputs that conform to the spec. In general they are robust, tested, and production ready, but you may want to copy and modify them to style them to your needs. Alternatively, ReactoForm can be made to work with many popular React UI frameworks, and this is most likely what you want to do with this package.
 
 ## Installation
 
@@ -24,17 +24,17 @@ npm i reacto-form
 Import CommonJS from `reacto-form/cjs/<ComponentName>`. Example, assuming you have Babel configured to convert all `import` to `require`:
 
 ```js
-import Form from 'reacto-form/cjs/Form';
-import FormList from 'reacto-form/cjs/FormList';
-import useReactoForm from 'reacto-form/cjs/useReactoForm';
+import Form from "reacto-form/cjs/Form";
+import FormList from "reacto-form/cjs/FormList";
+import useReactoForm from "reacto-form/cjs/useReactoForm";
 ```
 
 Import ECMAScript module from `reacto-form/esm/<ComponentName>`. Example:
 
 ```js
-import Form from 'reacto-form/esm/Form';
-import FormList from 'reacto-form/esm/FormList';
-import useReactoForm from 'reacto-form/esm/useReactoForm';
+import Form from "reacto-form/esm/Form";
+import FormList from "reacto-form/esm/FormList";
+import useReactoForm from "reacto-form/esm/useReactoForm";
 ```
 
 ### Alternative
@@ -42,12 +42,12 @@ import useReactoForm from 'reacto-form/esm/useReactoForm';
 You can also use named imports from the package entry point, but this may result in a larger bundle size versus importing directly from the component path.
 
 ```js
-import { Form, FormList, useReactoForm } from 'reacto-form';
+import { Form, FormList, useReactoForm } from "reacto-form";
 ```
 
 ## Example
 
-See https://github.com/DairyStateDesigns/reacto-form-inputs#example
+See https://github.com/longshotlabs/reacto-form-inputs#example
 
 ## Demo App
 
@@ -68,7 +68,7 @@ Here's the simplest possible example, using [SimpleSchema](https://github.com/al
 
 ```js
 import React from "react";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import { ErrorsBlock, Field, Input } from "reacto-form-inputs";
 import useReactoForm from "reacto-form/esm/useReactoForm";
 import SimpleSchema from "simpl-schema";
@@ -76,12 +76,12 @@ import SimpleSchema from "simpl-schema";
 const formSchema = new SimpleSchema({
   firstName: {
     type: String,
-    min: 4
+    min: 4,
   },
   lastName: {
     type: String,
-    min: 2
-  }
+    min: 2,
+  },
 });
 
 const validator = formSchema.getFormValidator();
@@ -89,14 +89,16 @@ const validator = formSchema.getFormValidator();
 export default function ReactoFormHookExample() {
   // Here we call the hook function. None of the options are required, but in general
   // you would always want a `validator` function and an `onSubmit` function.
-  const {
-    getErrors,
-    getInputProps,
-    submitForm,
-  } = useReactoForm({
-    onChange: (formData) => { console.log("onChangeForm", formData); },
-    onChanging: (formData) => { console.log("onChangingForm", formData); },
-    onSubmit: (formData) => { console.log("onSubmitForm", formData); },
+  const { getErrors, getInputProps, submitForm } = useReactoForm({
+    onChange: (formData) => {
+      console.log("onChangeForm", formData);
+    },
+    onChanging: (formData) => {
+      console.log("onChangingForm", formData);
+    },
+    onSubmit: (formData) => {
+      console.log("onSubmitForm", formData);
+    },
     validator,
     // value - optionally pass an object representing the current form data, if it's an update form or has default values
   });
@@ -104,9 +106,15 @@ export default function ReactoFormHookExample() {
   return (
     /* Note that we need not wrap our fields in <form>, or really in anything */
     <div>
-      /* We can use `getErrors` to get all of the errors related to one or more fields, based on the field path */
-      <Field name="firstName" errors={getErrors(["firstName"])} label="First name">
-        /* We can use `getInputProps` to get all props for a single field path */
+      /* We can use `getErrors` to get all of the errors related to one or more
+      fields, based on the field path */
+      <Field
+        name="firstName"
+        errors={getErrors(["firstName"])}
+        label="First name"
+      >
+        /* We can use `getInputProps` to get all props for a single field path
+        */
         <Input {...getInputProps("firstName")} />
         <ErrorsBlock errors={getErrors(["firstName"])} />
       </Field>
@@ -114,7 +122,8 @@ export default function ReactoFormHookExample() {
         <Input {...getInputProps("lastName")} />
         <ErrorsBlock errors={getErrors(["lastName"])} />
       </Field>
-      /* The submit action must call the `submitForm` function that `useReactoForm` returned */
+      /* The submit action must call the `submitForm` function that `useReactoForm`
+      returned */
       <Button onClick={submitForm}>Submit</Button>
     </div>
   );
@@ -164,15 +173,15 @@ Fortunately, the `useReactoForm` `getInputProps` function takes some options whi
 
 ```js
 getInputProps("email", {
-  nullValue: '',
-  onChangeGetValue: event => event.target.value,
-  onChangingGetValue: event => event.target.value,
+  nullValue: "",
+  onChangeGetValue: (event) => event.target.value,
+  onChangingGetValue: (event) => event.target.value,
   propNames: {
     errors: false,
     hasBeenValidated: false,
-    isReadOnly: 'disabled',
-    onChange: 'onBlur',
-    onChanging: 'onChange',
+    isReadOnly: "disabled",
+    onChange: "onBlur",
+    onChanging: "onChange",
     onSubmit: false,
   },
 });
@@ -198,11 +207,11 @@ Here's a full example:
 
 ```js
 import React from "react";
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import TextField from "@material-ui/core/TextField";
 import muiCheckboxOptions from "reacto-form/esm/muiCheckboxOptions";
 import muiOptions from "reacto-form/esm/muiOptions";
 import useReactoForm from "reacto-form/esm/useReactoForm";
@@ -211,19 +220,21 @@ import SimpleSchema from "simpl-schema";
 const formSchema = new SimpleSchema({
   firstName: {
     type: String,
-    min: 4
+    min: 4,
   },
   lastName: {
     type: String,
-    min: 2
+    min: 2,
   },
   isMarried: {
     type: Boolean,
-    optional: true
-  }
+    optional: true,
+  },
 });
 
-const onSubmit = (formData) => { console.log("onSubmitForm", formData); }
+const onSubmit = (formData) => {
+  console.log("onSubmitForm", formData);
+};
 const validator = formSchema.getFormValidator();
 
 export default function ReactoFormHookExampleMUI() {
@@ -231,7 +242,7 @@ export default function ReactoFormHookExampleMUI() {
     getFirstErrorMessage,
     getInputProps,
     hasErrors,
-    submitForm
+    submitForm,
   } = useReactoForm({
     onSubmit,
     validator,
@@ -255,9 +266,7 @@ export default function ReactoFormHookExampleMUI() {
       />
       <FormGroup row>
         <FormControlLabel
-          control={
-            <Checkbox color="primary" />
-          }
+          control={<Checkbox color="primary" />}
           label="Are you married?"
           {...getInputProps("isMarried", muiCheckboxOptions)}
         />
@@ -293,20 +302,18 @@ Fortunately, the `Form` component takes some options in the `inputOptions` props
 
 ```js
 const inputOptions = {
-  nullValue: '',
+  nullValue: "",
   propNames: {
     errors: false,
     hasBeenValidated: false,
-    isReadOnly: 'readOnly',
-    onChange: 'onBlur',
-    onChanging: 'onChange',
+    isReadOnly: "readOnly",
+    onChange: "onBlur",
+    onChanging: "onChange",
     onSubmit: false,
   },
 };
 
-<Form inputOptions={inputOptions}>
-  /* MUI inputs */
-</Form>
+<Form inputOptions={inputOptions}>/* MUI inputs */</Form>;
 ```
 
 To simplify this further, this package exports these options as `muiOptions`:
@@ -314,9 +321,7 @@ To simplify this further, this package exports these options as `muiOptions`:
 ```js
 import muiOptions from "reacto-form/esm/muiOptions";
 
-<Form inputOptions={muiOptions}>
-  /* MUI inputs */
-</Form>
+<Form inputOptions={muiOptions}>/* MUI inputs */</Form>;
 ```
 
 Here's a full example:
@@ -332,15 +337,17 @@ import SimpleSchema from "simpl-schema";
 const formSchema = new SimpleSchema({
   firstName: {
     type: String,
-    min: 4
+    min: 4,
   },
   lastName: {
     type: String,
-    min: 2
-  }
+    min: 2,
+  },
 });
 
-const onSubmit = (formData) => { console.log("onSubmitForm", formData); }
+const onSubmit = (formData) => {
+  console.log("onSubmitForm", formData);
+};
 const validator = formSchema.getFormValidator();
 
 export default function ReactoFormExampleMUI() {
@@ -357,20 +364,24 @@ export default function ReactoFormExampleMUI() {
         <TextField
           error={formRef.current && formRef.current.hasErrors(["firstName"])}
           fullWidth
-          helperText={formRef.current && formRef.current.getFirstErrorMessage(["firstName"])}
+          helperText={
+            formRef.current &&
+            formRef.current.getFirstErrorMessage(["firstName"])
+          }
           label="First name"
           name="firstName"
         />
         <TextField
           error={formRef.current && formRef.current.hasErrors(["lastName"])}
           fullWidth
-          helperText={formRef.current && formRef.current.getFirstErrorMessage(["lastName"])}
+          helperText={
+            formRef.current &&
+            formRef.current.getFirstErrorMessage(["lastName"])
+          }
           label="Last name"
           name="lastName"
         />
-        <Button
-          onClick={() => formRef.current && formRef.current.submit()}
-        >
+        <Button onClick={() => formRef.current && formRef.current.submit()}>
           Submit
         </Button>
       </Form>

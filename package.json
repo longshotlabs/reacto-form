@@ -1,17 +1,17 @@
 {
   "name": "reacto-form",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A reference implementation of the Composable Form Specification for React (see http://composableforms.com)",
-  "author": "Dairy State Designs (http://dairystatedesigns.com/)",
+  "author": "Long Shot Labs (https://www.longshotlabs.co/)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DairyStateDesigns/reacto-form.git"
+    "url": "https://github.com/longshotlabs/reacto-form.git"
   },
   "bugs": {
-    "url": "https://github.com/DairyStateDesigns/reacto-form/issues"
+    "url": "https://github.com/longshotlabs/reacto-form/issues"
   },
-  "homepage": "https://github.com/DairyStateDesigns/reacto-form",
+  "homepage": "https://github.com/longshotlabs/reacto-form",
   "files": [
     "CHANGELOG.md",
     "cjs",
@@ -26,7 +26,10 @@
     "not dead"
   ],
   "eslintConfig": {
-    "extends": "airbnb",
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
     "parser": "babel-eslint",
     "env": {
       "browser": true,
@@ -73,40 +76,41 @@
     "build:common": "rm -rf cjs/** && BABEL_ENV=production babel lib --out-dir cjs",
     "build:modules": "rm -rf esm/** && BABEL_ENV=production BABEL_MODULES=1 babel lib --out-dir esm",
     "lint": "eslint ./lib",
-    "prepare": "npm run lint && npm test && npm run build",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
     "test": "jest ./lib"
   },
   "peerDependencies": {
     "react": ">=16.8"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
+    "@babel/runtime": "^7.12.5",
     "clone": "^2.1.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.2",
-    "composable-form-tests": "^1.0.0",
-    "core-js": "^3.1.4",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "jest": "^24.8.0",
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.2",
+    "babel-eslint": "^10.1.0",
+    "composable-form-tests": "^1.0.1",
+    "core-js": "^3.8.1",
+    "enzyme": "^3.11.0",
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "jest": "^26.6.3",
     "raf": "^3.4.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-test-renderer": "^16.8.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-test-renderer": "^17.0.1",
     "reacto-form-inputs": "^1.1.0"
   }
 }
