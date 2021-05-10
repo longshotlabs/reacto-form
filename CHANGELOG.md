@@ -1,4 +1,8 @@
-# reacto-form CHANGELOG
+# CHANGELOG
+
+## Recent Releases
+
+Release notes can be found at https://github.com/longshotlabs/reacto-form
 
 ## 1.5.1
 

@@ -1,7 +1,10 @@
-dist
-cjs
-esm
-.DS_Store
+npm-debug.log*
+
+# Dependencies
 node_modules
-npm-debug.log
-.idea
+
+# Transpiled files
+build/
+
+# Misc
+.DS_Store

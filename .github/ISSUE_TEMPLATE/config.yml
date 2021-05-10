@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature Requests
+    url: https://github.com/longshotlabs/reacto-form/discussions
+    about: Request new features and product improvements on GitHub Discussions.

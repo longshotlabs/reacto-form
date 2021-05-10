@@ -1,3 +1,6 @@
-cjs
-esm
-node_modules
+node_modules/**
+typings/**
+.vscode/**
+.eslintrc.js
+jest.config.js
+.storybook/**
