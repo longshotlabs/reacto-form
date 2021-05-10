@@ -11,6 +11,6 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.stories.ts", "stories/**/*.stories.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -27,9 +27,22 @@ const formSchema = new SimpleSchema({
 })
 const validator = formSchema.getFormValidator()
 
-export type MuiFormExampleProps = Pick<UseReactoFormProps, 'hasBeenValidated' | 'logErrorsOnSubmit' | 'onChange' | 'onChanging' | 'onSubmit' | 'revalidateOn' | 'shouldSubmitWhenInvalid' | 'validateOn' | 'value'>
+export type MuiFormExampleProps = Pick<
+UseReactoFormProps,
+| 'hasBeenValidated'
+| 'logErrorsOnSubmit'
+| 'onChange'
+| 'onChanging'
+| 'onSubmit'
+| 'revalidateOn'
+| 'shouldSubmitWhenInvalid'
+| 'validateOn'
+| 'value'
+>
 
-export default function MuiFormExample (props: MuiFormExampleProps): ReactElement {
+export default function MuiFormExample (
+  props: MuiFormExampleProps
+): ReactElement {
   const {
     getFirstErrorMessage,
     getInputProps,
@@ -44,14 +57,14 @@ export default function MuiFormExample (props: MuiFormExampleProps): ReactElemen
   return (
     <form noValidate>
       <TextField
-        label='First name'
+        label="First name"
         error={hasErrors(['firstName'])}
         fullWidth
         helperText={getFirstErrorMessage(['firstName'])}
         {...getInputProps('firstName', muiOptions)}
       />
       <TextField
-        label='Last name'
+        label="Last name"
         error={hasErrors(['lastName'])}
         fullWidth
         helperText={getFirstErrorMessage(['lastName'])}
@@ -59,13 +72,17 @@ export default function MuiFormExample (props: MuiFormExampleProps): ReactElemen
       />
       <FormGroup row>
         <FormControlLabel
-          control={<Checkbox color='primary' />}
-          label='Are you married?'
+          control={<Checkbox color="primary" />}
+          label="Are you married?"
           {...getInputProps('isMarried', muiCheckboxOptions)}
         />
       </FormGroup>
-      <Button onClick={resetValue} color='default' variant='outlined'>Reset</Button>
-      <Button onClick={submitForm} color='primary' variant='outlined'>Submit</Button>
+      <Button onClick={resetValue} color="default" variant="outlined">
+        Reset
+      </Button>
+      <Button onClick={submitForm} color="primary" variant="outlined">
+        Submit
+      </Button>
     </form>
   )
 }
