@@ -1,0 +1,6 @@
+{
+  "line-length": false,
+  "no-bare-urls": false,
+  "no-emphasis-as-header": false,
+  "no-inline-html": false
+}
