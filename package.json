@@ -1,7 +1,7 @@
 {
   "name": "reacto-form",
   "version": "1.5.1",
-  "description": "A reference implementation of the Composable Form Specification for React (see http://composableforms.com)",
+  "description": "A reference implementation of the Composable Form Specification for React (see https://composableforms.netlify.app)",
   "author": "Long Shot Labs (https://www.longshotlabs.co/)",
   "license": "MIT",
   "repository": {

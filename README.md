@@ -1,6 +1,6 @@
 # reacto-form
 
-This package is a very lightweight implementation of a form handler that works with React input based on the [Composable Form Specification](http://composableforms.com/user/). ReactoForm works best with inputs that fully implement this specification, but it can be adjusted to work with most React form input components that are at least similar to the specification.
+This package is a very lightweight implementation of a form handler that works with React input based on the [Composable Form Specification](https://composableforms.netlify.app/user/). ReactoForm works best with inputs that fully implement this specification, but it can be adjusted to work with most React form input components that are at least similar to the specification.
 
 This package exports the following things that help you quickly combine, validate, and submit form data collected by React input components:
 
@@ -145,14 +145,14 @@ Here's a full list of what you can pass to `useReactoForm`:
 - `validateOn`: Set this to "changing", "changed", or "submit". The default is "submit". This determines how often `validator` will be called (thus reactively updating `errors`) when `hasBeenValidated` is `false`. When `hasBeenValidated` is `true`, then the `revalidateOn` setting is used.
   - Note that these are additive; "changing" causes validation before `onChanging` is called, before `onChange` is called, AND before `onSubmit` is called; "changed" causes validation before `onChange` is called AND before `onSubmit` is called; "submit" causes validation only before `onSubmit` is called.
   - If you don't need validation, simply don't pass a `validator` function.
-- `validator`: This is the validation function. Use any validation library you want as long as you return an errors array with [this structure](http://composableforms.com/spec/errors/#errors), or a Promise that resolves with such an array.
+- `validator`: This is the validation function. Use any validation library you want as long as you return an errors array with [this structure](https://composableforms.netlify.app/spec/errors/#errors), or a Promise that resolves with such an array.
 - `value`: The current form data. Pass this for an update form or to provide default values for some of the inputs.
 
 Here's a full list of what you can get from the object returned by `useReactoForm`:
 
-- `getInputProps`: A function that returns a props object that conforms to the [Composable Form Input Specification](http://composableforms.com/user/input/). Pass a unique field path string as the first argument. For example, `getInputProps("email")` will return input props that result in the form data object `{ email: "" }` while `getInputProps("address.city")` will return input props that result in the form data object `{ address: { city: "" } }`. If you are using a compliant input component, simply pass the returned props to that input and everything will be wired up for you. If you are using a non-compliant input component, you may still be able to make it work. See the Material UI example below.
+- `getInputProps`: A function that returns a props object that conforms to the [Composable Form Input Specification](https://composableforms.netlify.app/user/input/). Pass a unique field path string as the first argument. For example, `getInputProps("email")` will return input props that result in the form data object `{ email: "" }` while `getInputProps("address.city")` will return input props that result in the form data object `{ address: { city: "" } }`. If you are using a compliant input component, simply pass the returned props to that input and everything will be wired up for you. If you are using a non-compliant input component, you may still be able to make it work. See the Material UI example below.
 - `formData`: The current form data object. This initially matches the `value` you provide but changes as the user fills out the form. If you call `resetValue`, this will once again match the `value` you provide.
-- `getErrors`: A function that returns an errors array like this: http://composableforms.com/spec/errors/#errors. The signature is `(fieldPaths, { includeDescendantErrors = false } = {})`. `fieldPaths` is an array of object paths. `includeDescendantErrors` would for example include an error for `"address.city"` when `fieldPaths` is `["address"]`.
+- `getErrors`: A function that returns an errors array like this: https://composableforms.netlify.app/spec/errors/#errors. The signature is `(fieldPaths, { includeDescendantErrors = false } = {})`. `fieldPaths` is an array of object paths. `includeDescendantErrors` would for example include an error for `"address.city"` when `fieldPaths` is `["address"]`.
 - `getFirstError`: A function similar to `getErrors` but returns only the first error matching any field path, or `null` if there are none. The signature is `(fieldPaths, { includeDescendantErrors = false } = {})`.
 - `getFirstErrorMessage`: A function similar to `getFirstError` but returns only the first error message string matching any field path, or `null` if there are none. The signature is `(fieldPaths, { includeDescendantErrors = false } = {})`.
 - `hasBeenValidated`: Boolean indicating whether `validator` has been called since the form was created or since `resetValue` was last called.
@@ -163,7 +163,7 @@ Here's a full list of what you can get from the object returned by `useReactoFor
 
 ### useReactoForm Hook with non-compliant inputs (Material UI example)
 
-Material UI is a great framework, but unfortunately the React input components do not currently match the [Composable Form Input Specification](http://composableforms.com/user/input/) in several ways. For example, the [TextField](https://material-ui.com/api/text-field/) has the following differences:
+Material UI is a great framework, but unfortunately the React input components do not currently match the [Composable Form Input Specification](https://composableforms.netlify.app/user/input/) in several ways. For example, the [TextField](https://material-ui.com/api/text-field/) has the following differences:
 
 - It complains when you pass `null` as `value`, and it considers the input to be "uncontrolled" when you pass `undefined` as `value`. Instead, it expects an empty string.
 - `onChange` is called while changing, `onBlur` is called after the change, and `onChanging` is never called and causes a console warning.
@@ -286,13 +286,13 @@ In addition to following the spec, these props are supported:
 - Use `style` or `className` props to help style the HTML form container, which is a DIV rather than a FORM.
 - Set `logErrorsOnSubmit` to `true` to log validation errors to the console when submitting. This can help you figure out why your form isn't submitting if, for example, you forgot to include an ErrorsBlock somewhere so there is an error not shown to the user.
 
-[Usage](http://composableforms.com/user/form/)
+[Usage](https://composableforms.netlify.app/user/form/)
 
 ### Using Form with non-compliant inputs (Material UI example)
 
 _Works in 1.3.0+_
 
-Material UI is a great framework, but unfortunately the React input components do not currently match the [Composable Form Input Specification](http://composableforms.com/user/input/) in several ways. For example, the [TextField](https://material-ui.com/api/text-field/) has the following differences:
+Material UI is a great framework, but unfortunately the React input components do not currently match the [Composable Form Input Specification](https://composableforms.netlify.app/user/input/) in several ways. For example, the [TextField](https://material-ui.com/api/text-field/) has the following differences:
 
 - It complains when you pass `null` as `value`, and it considers the input to be "uncontrolled" when you pass `undefined` as `value`. Instead, it expects an empty string.
 - `onChange` is called while changing, `onBlur` is called after the change, and `onChanging` is never called and causes a console warning.
@@ -414,4 +414,4 @@ In addition to following the spec, you can use the following props to help style
 
 If you want a different add/remove experience that can't be achieved with classes or styles, then you'll need to make your own implementation of FormList.
 
-[Usage](http://composableforms.com/user/list/)
+[Usage](https://composableforms.netlify.app/user/list/)
