@@ -27,13 +27,20 @@
   ],
   "eslintConfig": {
     "extends": [
-      "airbnb",
+      "airbnb-base",
+      "plugin:jsx-a11y/recommended",
+      "plugin:react/recommended",
       "prettier"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "env": {
       "browser": true,
       "jest": true
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
     },
     "rules": {
       "arrow-body-style": 0,
@@ -64,10 +71,11 @@
     }
   },
   "jest": {
-    "setupFiles": [
+    "setupFilesAfterEnv": [
       "raf/polyfill",
       "<rootDir>/jestSetup.js"
-    ]
+    ],
+    "testEnvironment": "jsdom"
   },
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -75,42 +83,43 @@
     "build": "npm run build:modules && npm run build:common",
     "build:common": "rm -rf cjs/** && BABEL_ENV=production babel lib --out-dir cjs",
     "build:modules": "rm -rf esm/** && BABEL_ENV=production BABEL_MODULES=1 babel lib --out-dir esm",
-    "lint": "eslint ./lib",
+    "lint": "BABEL_ENV=test eslint ./lib",
     "prepublishOnly": "npm run lint && npm test && npm run build",
     "test": "jest ./lib"
   },
   "peerDependencies": {
-    "react": ">=16.8"
+    "react": ">=16.8 || >=17"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "^7.16.3",
     "clone": "^2.1.2",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.9",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-react": "^7.12.7",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.2",
-    "babel-eslint": "^10.1.0",
-    "composable-form-tests": "^1.0.1",
-    "core-js": "^3.8.1",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
+    "composable-form-tests": "^1.1.0",
+    "core-js": "^3.19.1",
     "enzyme": "^3.11.0",
-    "eslint": "^7.15.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
-    "jest": "^26.6.3",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.0",
+    "jest": "^27.3.1",
+    "jsdom": "^18.1.0",
     "raf": "^3.4.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-test-renderer": "^17.0.1",
-    "reacto-form-inputs": "^1.1.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
+    "reacto-form-inputs": "^1.2.0"
   }
 }
