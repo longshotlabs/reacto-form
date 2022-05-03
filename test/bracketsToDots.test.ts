@@ -1,3 +1,5 @@
+import { expect, test } from '@jest/globals';
+
 import bracketsToDots from "../src/util/bracketsToDots";
 
 test("bracketsToDots", () => {
