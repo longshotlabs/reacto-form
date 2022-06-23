@@ -58,6 +58,7 @@ export interface UseReactoFormState {
   getErrors: (fieldPaths: string[], options?: ErrorOptions) => ValidationError[]
   getFirstError: (fieldPaths: string[], options?: ErrorOptions) => ValidationError | null
   getFirstErrorMessage: (fieldPaths: string[], options?: ErrorOptions) => string | null
+  updateFormData: (formData: FormData) => void
   getInputProps: (fieldPath: string, options?: GetInputPropsOptions) => Record<string, any>
   hasBeenValidated: boolean
   hasErrors: (fieldPaths: string[], options?: ErrorOptions) => boolean

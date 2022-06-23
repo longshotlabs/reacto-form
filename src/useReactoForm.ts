@@ -188,8 +188,33 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
     return fieldErrors[0]
   }
 
+  function applyValueChange (updatedFormData: FormData, isValidationRequired = false) {
+    // Bubble up the `onChange`, possibly validating first
+    if (isValidationRequired) {
+      validateForm()
+        .then((updatedErrors) => {
+          onChange(updatedFormData, updatedErrors.length === 0)
+          return null
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    } else {
+      onChange(updatedFormData, errors.length === 0)
+    }
+  }
+
   const formState: UseReactoFormState = {
     formData,
+    updateFormData (formData) {
+      const isValidationRequired =
+        validateOn === 'changed' ||
+        validateOn === 'changing' ||
+        (hasBeenValidated &&
+          (revalidateOn === 'changed' || revalidateOn === 'changing'))
+
+      applyValueChange(formData, isValidationRequired);
+    },
     getInputProps (fieldPath, getInputPropsOptions = {}) {
       const {
         isForm = false,
@@ -235,24 +260,13 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
           ? onApplyChangeToForm(clone(formData), inputValue, fieldPath)
           : setFieldValueInFormData(fieldPath, inputValue)
 
-        // Now bubble up the `onChange`, possibly validating first
-        if (
+        const isValidationRequired =
           validateOn === 'changed' ||
           validateOn === 'changing' ||
           (hasBeenValidated &&
             (revalidateOn === 'changed' || revalidateOn === 'changing'))
-        ) {
-          validateForm()
-            .then((updatedErrors) => {
-              onChange(updatedFormData, updatedErrors.length === 0)
-              return null
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        } else {
-          onChange(updatedFormData, errors.length === 0)
-        }
+
+        applyValueChange(updatedFormData, isValidationRequired)
       }
 
       function onInputValueChanging (...onChangingArgs: any[]): void {
@@ -266,21 +280,11 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
 
         const updatedFormData = setFieldValueInFormData(fieldPath, inputValue)
 
-        if (
+        const isValidationRequired =
           validateOn === 'changing' ||
           (hasBeenValidated && revalidateOn === 'changing')
-        ) {
-          validateForm()
-            .then((updatedErrors) => {
-              onChanging(updatedFormData, updatedErrors.length === 0)
-              return null
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        } else {
-          onChanging(updatedFormData, errors.length === 0)
-        }
+
+        applyValueChange(updatedFormData, isValidationRequired)
       }
 
       // Some input components (MUI) do not accept a `null` value.
