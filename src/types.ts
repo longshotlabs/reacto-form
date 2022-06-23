@@ -19,6 +19,7 @@ export interface GetInputPropsOptions {
   nullValue?: any
   onChangeGetValue?: (...args: any[]) => any
   onChangingGetValue?: (...args: any[]) => any
+  onApplyChangeToForm?: (formData: FormData, fieldValue: any, fieldPath: string) => FormData,
   propNames?: Partial<InputPropNameMap>
 }
 

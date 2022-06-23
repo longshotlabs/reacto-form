@@ -195,7 +195,8 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
         isForm = false,
         nullValue,
         onChangeGetValue,
-        onChangingGetValue
+        onChangingGetValue,
+        onApplyChangeToForm,
       } = getInputPropsOptions
 
       const propNames: InputPropNameMap = { ...DEFAULT_PROP_NAMES }
@@ -230,7 +231,9 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
           ? onChangeGetValue(...onChangeArgs)
           : onChangeArgs[0]
 
-        const updatedFormData = setFieldValueInFormData(fieldPath, inputValue)
+        const updatedFormData = (onApplyChangeToForm != null)
+          ? onApplyChangeToForm(clone(formData), inputValue, fieldPath)
+          : setFieldValueInFormData(fieldPath, inputValue)
 
         // Now bubble up the `onChange`, possibly validating first
         if (
