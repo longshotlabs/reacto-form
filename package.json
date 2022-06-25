@@ -1,6 +1,6 @@
 {
   "name": "@gwhobbs/reacto-form",
-  "version": "0.0.3-development",
+  "version": "0.0.4-development",
   "description": "A React form state manager hook designed to work with many popular form UI frameworks",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",

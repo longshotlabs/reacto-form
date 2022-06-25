@@ -253,12 +253,20 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
         // directly as the first arg. Many popular libraries pass
         // an Event as the first arg, and `onChangeGetValue` can be
         // used to determine and return the new value.
+        const handleApplyChangeToForm = (formData: FormData, newValue: any, fieldPath: string) => {
+          if (typeof onApplyChangeToForm !== 'function') {
+            return formData
+          }
+          const nextFormData = onApplyChangeToForm(formData, newValue, fieldPath)
+          setFormData(nextFormData)
+          return nextFormData
+        }
         const inputValue = (onChangeGetValue != null)
           ? onChangeGetValue(...onChangeArgs)
           : onChangeArgs[0]
 
         const updatedFormData = (onApplyChangeToForm != null)
-          ? onApplyChangeToForm(clone(formData), inputValue, fieldPath)
+          ? handleApplyChangeToForm(clone(formData), inputValue, fieldPath)
           : setFieldValueInFormData(fieldPath, inputValue)
 
         const isValidationRequired =
