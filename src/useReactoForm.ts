@@ -213,7 +213,8 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
         (hasBeenValidated &&
           (revalidateOn === 'changed' || revalidateOn === 'changing'))
 
-      applyValueChange(formData, isValidationRequired);
+      setFormData(formData)
+      applyValueChange(formData, isValidationRequired)
     },
     getInputProps (fieldPath, getInputPropsOptions = {}) {
       const {
