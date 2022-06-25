@@ -188,14 +188,41 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
     return fieldErrors[0]
   }
 
+  function applyValueChange (updatedFormData: FormData, isValidationRequired = false) {
+    // Bubble up the `onChange`, possibly validating first
+    if (isValidationRequired) {
+      validateForm()
+        .then((updatedErrors) => {
+          onChange(updatedFormData, updatedErrors.length === 0)
+          return null
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    } else {
+      onChange(updatedFormData, errors.length === 0)
+    }
+  }
+
   const formState: UseReactoFormState = {
     formData,
+    updateFormData (formData) {
+      const isValidationRequired =
+        validateOn === 'changed' ||
+        validateOn === 'changing' ||
+        (hasBeenValidated &&
+          (revalidateOn === 'changed' || revalidateOn === 'changing'))
+
+      setFormData(formData)
+      applyValueChange(formData, isValidationRequired)
+    },
     getInputProps (fieldPath, getInputPropsOptions = {}) {
       const {
         isForm = false,
         nullValue,
         onChangeGetValue,
-        onChangingGetValue
+        onChangingGetValue,
+        onApplyChangeToForm,
       } = getInputPropsOptions
 
       const propNames: InputPropNameMap = { ...DEFAULT_PROP_NAMES }
@@ -226,30 +253,29 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
         // directly as the first arg. Many popular libraries pass
         // an Event as the first arg, and `onChangeGetValue` can be
         // used to determine and return the new value.
+        const handleApplyChangeToForm = (formData: FormData, newValue: any, fieldPath: string) => {
+          if (typeof onApplyChangeToForm !== 'function') {
+            return formData
+          }
+          const nextFormData = onApplyChangeToForm(formData, newValue, fieldPath)
+          setFormData(nextFormData)
+          return nextFormData
+        }
         const inputValue = (onChangeGetValue != null)
           ? onChangeGetValue(...onChangeArgs)
           : onChangeArgs[0]
 
-        const updatedFormData = setFieldValueInFormData(fieldPath, inputValue)
+        const updatedFormData = (onApplyChangeToForm != null)
+          ? handleApplyChangeToForm(clone(formData), inputValue, fieldPath)
+          : setFieldValueInFormData(fieldPath, inputValue)
 
-        // Now bubble up the `onChange`, possibly validating first
-        if (
+        const isValidationRequired =
           validateOn === 'changed' ||
           validateOn === 'changing' ||
           (hasBeenValidated &&
             (revalidateOn === 'changed' || revalidateOn === 'changing'))
-        ) {
-          validateForm()
-            .then((updatedErrors) => {
-              onChange(updatedFormData, updatedErrors.length === 0)
-              return null
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        } else {
-          onChange(updatedFormData, errors.length === 0)
-        }
+
+        applyValueChange(updatedFormData, isValidationRequired)
       }
 
       function onInputValueChanging (...onChangingArgs: any[]): void {
@@ -263,21 +289,11 @@ export default function useReactoForm (props: UseReactoFormProps): UseReactoForm
 
         const updatedFormData = setFieldValueInFormData(fieldPath, inputValue)
 
-        if (
+        const isValidationRequired =
           validateOn === 'changing' ||
           (hasBeenValidated && revalidateOn === 'changing')
-        ) {
-          validateForm()
-            .then((updatedErrors) => {
-              onChanging(updatedFormData, updatedErrors.length === 0)
-              return null
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        } else {
-          onChanging(updatedFormData, errors.length === 0)
-        }
+
+        applyValueChange(updatedFormData, isValidationRequired)
       }
 
       // Some input components (MUI) do not accept a `null` value.
