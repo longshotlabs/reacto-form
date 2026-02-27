@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Form from "reacto-form/esm/Form";
 import muiOptions from "reacto-form/esm/muiOptions";
 import validator from "./formValidator";

@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { useRef } from "react";
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
 import { Form } from "reacto-form";
 import { ErrorsBlock, Field, Input } from "reacto-form-inputs";
 import validator from "./formValidator";

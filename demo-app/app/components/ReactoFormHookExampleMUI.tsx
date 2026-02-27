@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import TextField from '@mui/material/TextField';
 import muiOptions from "reacto-form/esm/muiOptions";
 import muiCheckboxOptions from "reacto-form/esm/muiCheckboxOptions";
 import useReactoForm from "reacto-form/esm/useReactoForm";

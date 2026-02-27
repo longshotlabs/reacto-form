@@ -68,7 +68,7 @@ Here's the simplest possible example, using [SimpleSchema](https://github.com/al
 
 ```js
 import React from "react";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { ErrorsBlock, Field, Input } from "reacto-form-inputs";
 import useReactoForm from "reacto-form/esm/useReactoForm";
 import SimpleSchema from "simpl-schema";
@@ -207,11 +207,11 @@ Here's a full example:
 
 ```js
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import TextField from "@mui/material/TextField";
 import muiCheckboxOptions from "reacto-form/esm/muiCheckboxOptions";
 import muiOptions from "reacto-form/esm/muiOptions";
 import useReactoForm from "reacto-form/esm/useReactoForm";
@@ -328,8 +328,8 @@ Here's a full example:
 
 ```js
 import React, { useRef } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import Form from "reacto-form/esm/Form";
 import muiOptions from "reacto-form/esm/muiOptions";
 import SimpleSchema from "simpl-schema";
