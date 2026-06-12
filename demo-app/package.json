@@ -24,14 +24,14 @@
     "simpl-schema": "^3.4.6"
   },
   "devDependencies": {
-    "@react-router/dev": "7.12.0",
-    "@tailwindcss/vite": "^4.1.13",
+    "@react-router/dev": "7.17.0",
+    "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^22",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.3",
-    "vite": "^7.3.2",
+    "vite": "^8.0.16",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
