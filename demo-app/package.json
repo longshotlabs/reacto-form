@@ -14,7 +14,7 @@
     "@mui/material": "^7.3.8",
     "@mui/styles": "^6.5.0",
     "@react-router/node": "7.12.0",
-    "@react-router/serve": "7.12.0",
+    "@react-router/serve": "8.3.1",
     "isbot": "^5.1.31",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -24,7 +24,7 @@
     "simpl-schema": "^3.4.6"
   },
   "devDependencies": {
-    "@react-router/dev": "7.17.0",
+    "@react-router/dev": "8.3.1",
     "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^22",
     "@types/react": "^19.2.7",
